@@ -340,43 +340,55 @@
       .join("");
   }
 
+  /* ---------- Secretariat register ---------- */
+
+  /* sheet.js sits before this file, but registration must survive even
+     if it ever fails to load. */
+  var registerApi = window.WEA_SHEET || {
+    configured: function () { return false; },
+    checkEmail: function (email, done) { done({ ok: true, skipped: true, exists: false }); }
+  };
+
+  function setSync(text, kind) {
+    var el = document.getElementById("regSync");
+    if (!el) return;
+    el.textContent = text || "";
+    el.className = "form-note" + (kind ? " is-" + kind : "");
+  }
+
+  /* Called once the local save has succeeded, so a lost connection
+     can never cost the applicant their membership number. Failure
+     here is reported honestly rather than swallowed — the WhatsApp
+     button below is the working fallback. */
+  function syncToSheet(member, cv) {
+    if (!registerApi.configured()) {
+      setSync("Keep your member ID safe — the Secretariat will confirm after review.");
+      return;
+    }
+
+    setSync("Sending your application to the Secretariat register…");
+
+    registerApi.submitApplication(member, cv, function (res) {
+      if (res && res.ok) {
+        setSync("Sent to the Secretariat register" + (res.duplicate ? " (existing row updated)" : "") + ".", "good");
+        return;
+      }
+      if (res && res.skipped) {
+        setSync("Keep your member ID safe — the Secretariat will confirm after review.");
+        return;
+      }
+      setSync(
+        "Your application is saved here, but we could not reach the Secretariat register. " +
+          "Please press Confirm on WhatsApp so nothing is missed. (" +
+          (res && res.error ? res.error : "Unknown error") + ")",
+        "bad"
+      );
+    });
+  }
+
   /* ---------- submit ---------- */
 
-  form.addEventListener("submit", function (event) {
-    event.preventDefault();
-
-    if (!validatePanel(1)) return showStep(1);
-    if (!validatePanel(2)) return showStep(2);
-    if (!chosenTier) {
-      WEA.toast("Please choose a class of membership.");
-      return showStep(3);
-    }
-
-    /* guard against a duplicate application for the same email */
-    var email = val("email").toLowerCase();
-    var existing = WEA_STORE.all().filter(function (m) {
-      return String(m.email || "").trim().toLowerCase() === email;
-    })[0];
-
-    if (existing) {
-      fields.email.dataset.errorMsg =
-        "This email is already registered to " + existing.id +
-        ". Use a different email, or check that application's status.";
-      markInvalid(fields.email, true);
-      WEA.toast("An application already exists for that email address.");
-      showStep(1);
-      fields.email.focus();
-      return;
-    }
-
-    var socials = readSocials();
-    if (socials.__invalid) {
-      delete socials.__invalid;
-      WEA.toast("Check your social handles.");
-      showStep(2);
-      return;
-    }
-
+  function submitApplication(socials) {
     var result = WEA_STORE.register({
       name: val("fullName"),
       email: val("email"),
@@ -393,11 +405,13 @@
     });
 
     if (!result || result.ok === false) {
+      setSync("", "");
       WEA.toast("We could not save your application. Please try again.");
       return;
     }
 
     var member = result.member;
+    var cvForRegister = pendingCv;
 
     /* Attach the CV if one was chosen. A storage failure must not lose
        the application itself — warn and carry on. */
@@ -458,6 +472,61 @@
         behavior: WEA.reduceMotion ? "auto" : "smooth"
       });
     }
+
+    syncToSheet(member, cvForRegister);
+  }
+
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    if (!validatePanel(1)) return showStep(1);
+    if (!validatePanel(2)) return showStep(2);
+    if (!chosenTier) {
+      WEA.toast("Please choose a class of membership.");
+      return showStep(3);
+    }
+
+    /* guard against a duplicate application for the same email */
+    var email = val("email").toLowerCase();
+    var existing = WEA_STORE.all().filter(function (m) {
+      return String(m.email || "").trim().toLowerCase() === email;
+    })[0];
+
+    if (existing) {
+      fields.email.dataset.errorMsg =
+        "This email is already registered to " + existing.id +
+        ". Use a different email, or check that application's status.";
+      markInvalid(fields.email, true);
+      WEA.toast("An application already exists for that email address.");
+      showStep(1);
+      fields.email.focus();
+      return;
+    }
+
+    var socials = readSocials();
+    if (socials.__invalid) {
+      delete socials.__invalid;
+      WEA.toast("Check your social handles.");
+      showStep(2);
+      return;
+    }
+
+    /* The check above only sees this browser. The register knows about
+       applications from every device, so ask it before writing. A
+       failed check must not block someone from applying. */
+    registerApi.checkEmail(email, function (check) {
+      if (check && check.ok && check.exists) {
+        fields.email.dataset.errorMsg =
+          "An application already exists for that email address. " +
+          "Check your email or WhatsApp the Secretariat for its status.";
+        markInvalid(fields.email, true);
+        WEA.toast("An application already exists for that email address.");
+        showStep(1);
+        fields.email.focus();
+        return;
+      }
+      submitApplication(socials);
+    });
   });
 
   /* ---------- start another application ---------- */

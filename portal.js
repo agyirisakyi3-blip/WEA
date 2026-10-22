@@ -442,6 +442,28 @@
     }
 
     var form = document.getElementById("dashForm");
+    /* ---------- Secretariat register ---------- */
+
+    /* Profile edits are pushed back to the register so the Sheet stays
+       in step with what members see in their portal. Runs after the
+       local save and never blocks the "Saved" confirmation. */
+    function syncProfileToSheet(record, cvRemoved) {
+      if (!window.WEA_SHEET || !WEA_SHEET.configured()) return;
+      WEA_SHEET.submitUpdate(record, function (res) {
+        var note = document.getElementById("dashNote");
+        if (!note) return;
+        if (res && res.ok) {
+          note.textContent = "Saved — your record is up to date and the register has been notified.";
+          note.className = "form-note is-good";
+          return;
+        }
+        if (res && res.skipped) return;
+        note.textContent =
+          "Saved in this browser, but the register could not be reached. Your changes are safe here and will show once synced.";
+        note.className = "form-note is-bad";
+      });
+    }
+
     if (form) {
       bindCvActions();
       form.addEventListener("submit", function (event) {
@@ -481,6 +503,7 @@
 
         /* Apply any CV change. Done after the profile write so a failed
            CV save cannot silently discard the text edits too. */
+        var cvWasRemoved = removeCv;
         if (pendingCv || removeCv) {
           var cvResult = WEA_STORE.setCv(member.id, removeCv ? null : pendingCv);
           if (!cvResult || !cvResult.ok) {
@@ -509,6 +532,8 @@
         renderDashboard(member.status === "verified");
         if (note) { note.textContent = "Saved — your record is up to date."; note.className = "form-note is-good"; }
         WEA.toast("Profile updated");
+
+        syncProfileToSheet(member, cvWasRemoved);
       });
     }
   }

@@ -27,6 +27,20 @@
     founded: "2026"
   };
 
+  /* ---------- Secretariat register (Google Sheet) ----------
+     Applications are mirrored to a Google Sheet so the Secretariat
+     keeps a real ledger, independent of any one visitor's browser.
+
+     Leave endpoint empty and the site works exactly as before —
+     applications simply stay local to the browser.
+
+     To switch it on: see apps-script/README.md. Paste the web app
+     URL from your Apps Script deployment between the quotes below. */
+
+  WEA_DATA.sheet = {
+    endpoint: ""
+  };
+
   /* ---------- Executive Council ---------- */
 
   WEA_DATA.executives = [

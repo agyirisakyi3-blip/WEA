@@ -477,12 +477,12 @@
   /* ---------- Marketing portal content ---------- */
 
   WEA_DATA.palette = [
-    { name: "WEA Deep Green", hex: "#050F0B", note: "Primary background" },
-    { name: "Forest", hex: "#0B2018", note: "Surface / cards" },
-    { name: "Heritage Gold", hex: "#E3B45B", note: "Accent / action" },
-    { name: "Champagne", hex: "#F0CB86", note: "Highlight / hover" },
-    { name: "Ivory", hex: "#EFF2EA", note: "Primary text" },
-    { name: "Sage", hex: "#A3B5AA", note: "Secondary text" }
+    { name: "Paper", hex: "#F6F2E9", note: "Primary background" },
+    { name: "Bone", hex: "#EFE8DB", note: "Surface / cards" },
+    { name: "Deep Ink", hex: "#111A2B", note: "Primary text / footer" },
+    { name: "Cobalt", hex: "#1F45C9", note: "Accent / action" },
+    { name: "Vermillion", hex: "#CF4520", note: "Secondary accent" },
+    { name: "Slate", hex: "#4F5866", note: "Secondary text" }
   ];
 
   WEA_DATA.templates = [

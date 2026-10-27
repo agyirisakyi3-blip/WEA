@@ -391,7 +391,7 @@
 
   WEA.qrHTML = function (text, size, label) {
     if (typeof window.WEA_QR !== "object" || !window.WEA_QR) return "";
-    var svg = window.WEA_QR.svg(text, { size: size || 96, margin: 1, dark: "#050f0b", light: "#ffffff" });
+    var svg = window.WEA_QR.svg(text, { size: size || 96, margin: 1, dark: "#111a2b", light: "#ffffff" });
     if (!svg) return "";
     return '<span class="id-qr"' + (label ? ' role="img" aria-label="' + escapeHTML(label) + '"' : "") + ">" + svg + "</span>";
   };
@@ -418,9 +418,8 @@
       '<div class="id-top">' +
       '<span class="id-brand">' +
       '<svg class="brand-mark" viewBox="0 0 44 44" fill="none" aria-hidden="true">' +
-      '<circle cx="22" cy="23" r="16.5" stroke="currentColor" stroke-width="2"/>' +
-      '<path d="M9.5 17L15 30L22 15.5L29 30L34.5 17" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>' +
-      '<path d="M22 8.6l2.1 2.1-2.1 2.1-2.1-2.1z" fill="currentColor"/>' +
+      '<path d="M5 33.5 13.75 10.5 22 26.25 30.25 10.5 39 33.5" stroke="currentColor" stroke-width="3" stroke-linejoin="miter" stroke-linecap="square"/>' +
+      '<rect x="33" y="4" width="7" height="7" fill="#1F45C9"/>' +
       "</svg>" +
       "<span><strong>WEA</strong><small>World Entrepreneurs Assoc.</small></span>" +
       "</span>" +

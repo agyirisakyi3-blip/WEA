@@ -1,42 +1,66 @@
 /* ============================================================
    WEA — World Entrepreneurs Association
-   Design system · refined dark + gold
+   Brand system · Editorial Ivory & Ink
+   Fraunces display · General Sans body · IBM Plex Mono labels
+   Paper #F6F2E9 · Ink #111A2B · Cobalt #1F45C9 · Vermillion #CF4520
    ============================================================ */
 
 :root {
-  --bg: #050f0b;
-  --bg-2: #081711;
-  --bg-3: #0b2018;
-  --bg-4: #102a20;
-  --line: rgba(226, 232, 222, 0.09);
-  --line-strong: rgba(226, 232, 222, 0.22);
-  --text: #eff2ea;
-  --muted: #a3b5aa;
-  --faint: #86988c;
-  --gold: #e3b45b;
-  --gold-2: #f0cb86;
-  --gold-dim: rgba(227, 180, 91, 0.12);
-  --gold-line: rgba(227, 180, 91, 0.35);
-  --ok: #6fd39b;
-  --ok-dim: rgba(111, 211, 155, 0.12);
-  --ok-line: rgba(111, 211, 155, 0.35);
-  --ink: #07120d;
-  --paper: #ece5d8;
-  --paper-ink: #14291d;
-  --paper-muted: #54645a;
-  --paper-gold: #7c5e26;
-  --danger: #e8927c;
-  --danger-dim: rgba(232, 146, 124, 0.1);
-  --danger-line: rgba(232, 146, 124, 0.38);
-  --radius-card: 18px;
-  --radius-input: 12px;
-  --radius-sm: 10px;
-  --nav-h: 76px;
-  --font-display: "Clash Display", "Sora", sans-serif;
-  --font-body: "Satoshi", "Segoe UI", sans-serif;
+  /* Paper & ink surfaces */
+  --bg: #f6f2e9;
+  --bg-2: #efe8db;
+  --bg-3: #e7dfd0;
+  --bg-4: #ded4c2;
+  --ink: #111a2b;
+  --ink-2: #0b1322;
+  --on-accent: #f8f4ea;
+
+  /* Rules & type */
+  --line: rgba(17, 26, 43, 0.12);
+  --line-strong: rgba(17, 26, 43, 0.28);
+  --text: #111a2b;
+  --text-dim: #3c4553;
+  --muted: #4f5866;
+  --faint: #656d7c;
+
+  /* Cobalt accent (legacy --gold token name retained for compatibility) */
+  --gold: #1f45c9;
+  --gold-2: #3458d6;
+  --gold-dim: rgba(31, 69, 201, 0.09);
+  --gold-line: rgba(31, 69, 201, 0.32);
+  --accent: #1f45c9;
+
+  /* Vermillion editorial accent — small marks, numerals, rules */
+  --accent-2: #cf4520;
+  --accent-2-ink: #b83b1a;
+  --accent-2-dim: rgba(207, 69, 32, 0.09);
+  --accent-2-line: rgba(207, 69, 32, 0.34);
+
+  /* Status */
+  --ok: #16735a;
+  --ok-dim: rgba(22, 115, 90, 0.1);
+  --ok-line: rgba(22, 115, 90, 0.3);
+  --danger: #b8401f;
+  --danger-dim: rgba(184, 64, 31, 0.09);
+  --danger-line: rgba(184, 64, 31, 0.32);
+
+  /* Paper set (legacy references, re-pointed to the new palette) */
+  --paper: #f6f2e9;
+  --paper-ink: #111a2b;
+  --paper-muted: #4f5866;
+  --paper-gold: #1f45c9;
+
+  /* Editorial geometry: near-square corners, hairline rules */
+  --radius-card: 2px;
+  --radius-input: 2px;
+  --radius-sm: 2px;
+
+  --nav-h: 74px;
+  --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
+  --font-body: "General Sans", "Segoe UI", sans-serif;
   --font-mono: "IBM Plex Mono", monospace;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 *,
@@ -92,7 +116,7 @@ button {
 
 ::selection {
   background: var(--gold);
-  color: var(--ink);
+  color: var(--on-accent);
 }
 
 :focus-visible {
@@ -110,8 +134,8 @@ button {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--bg-3);
-  border-radius: 999px;
+  background: var(--ink);
+  border-radius: 0;
   border: 2px solid var(--bg);
 }
 
@@ -144,9 +168,9 @@ button {
   left: 16px;
   z-index: 200;
   padding: 0.7rem 1.2rem;
-  background: var(--gold);
-  color: var(--ink);
-  border-radius: 999px;
+  background: var(--ink);
+  color: var(--on-accent);
+  border-radius: var(--radius-sm);
   font-weight: 700;
   transition: top 0.25s var(--ease);
 }
@@ -160,8 +184,8 @@ button {
   inset: -50%;
   z-index: 90;
   pointer-events: none;
-  opacity: 0.05;
-  mix-blend-mode: overlay;
+  opacity: 0.035;
+  mix-blend-mode: multiply;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
@@ -195,14 +219,20 @@ button {
 .section-tag {
   display: inline-flex;
   align-items: center;
-  gap: 0.8rem;
+  gap: 0.9rem;
   font-family: var(--font-mono);
   font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.22em;
+  font-weight: 600;
+  letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 1.4rem;
+  color: var(--accent);
+  margin-bottom: 1.6rem;
+  padding: 0.5rem 1.2rem 0.5rem 1rem;
+  background: linear-gradient(90deg, rgba(31,69,201,0.08) 0%, rgba(31,69,201,0.04) 100%);
+  border: 1px solid rgba(31,69,201,0.25);
+  border-left: 3px solid var(--accent);
+  border-radius: 2px;
+  box-shadow: 0 1px 2px rgba(17,26,43,0.02);
 }
 
 .section-tag::before {
@@ -214,7 +244,7 @@ button {
 }
 
 .section-tag span {
-  color: var(--faint);
+  color: #fff;
 }
 
 .section-tag--center {
@@ -270,14 +300,14 @@ button {
 }
 
 .btn-primary {
-  background: var(--gold);
-  color: var(--ink);
+  background: var(--ink);
+  color: var(--on-accent);
 }
 
 .btn-primary:hover {
   background: var(--gold-2);
   transform: translateY(-2px);
-  box-shadow: 0 14px 34px -14px rgba(227, 180, 91, 0.5);
+  box-shadow: 0 14px 34px -14px rgba(31, 69, 201, 0.5);
 }
 
 .btn-ghost {
@@ -336,7 +366,7 @@ button {
   padding: 0.32rem 0.7rem;
   border: 1px solid var(--line-strong);
   border-radius: 999px;
-  background: rgba(226, 232, 222, 0.05);
+  background: rgba(17, 26, 43, 0.05);
   color: var(--muted);
   font-family: var(--font-mono);
   font-size: 10.5px;
@@ -375,7 +405,7 @@ button {
   padding: 1rem 1.2rem;
   border: 1px solid var(--line-strong);
   border-radius: 14px;
-  background: rgba(226, 232, 222, 0.04);
+  background: rgba(17, 26, 43, 0.04);
   color: var(--muted);
   font-size: 0.93rem;
   line-height: 1.55;
@@ -480,11 +510,11 @@ button {
 }
 
 .nav.scrolled .nav-inner {
-  background: rgba(6, 17, 13, 0.78);
+  background: rgba(246, 242, 233, 0.78);
   backdrop-filter: blur(16px) saturate(1.3);
   -webkit-backdrop-filter: blur(16px) saturate(1.3);
   border-color: var(--line);
-  box-shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 18px 40px -24px rgba(17, 26, 43, 0.7);
 }
 
 .brand {
@@ -596,7 +626,7 @@ button {
   position: fixed;
   inset: 0;
   z-index: 70;
-  background: rgba(5, 15, 11, 0.97);
+  background: rgba(255, 253, 247, 0.97);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   opacity: 0;
@@ -776,7 +806,7 @@ button {
 
 .hero-rail {
   border-top: 1px solid var(--line-strong);
-  background: rgba(6, 17, 13, 0.5);
+  background: rgba(246, 242, 233, 0.5);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 }
@@ -1107,7 +1137,7 @@ button {
   flex-direction: column;
   gap: 1.1rem;
   padding: 1.9rem 1.6rem;
-  background: linear-gradient(170deg, rgba(16, 42, 32, 0.5), rgba(8, 23, 17, 0.6));
+  background: linear-gradient(170deg, rgba(255, 253, 247, 0.5), rgba(239, 232, 219, 0.6));
   border: 1px solid var(--line);
   border-radius: var(--radius-card);
   transition: transform 0.45s var(--ease), border-color 0.45s var(--ease),
@@ -1117,17 +1147,17 @@ button {
 .tier-card:hover {
   transform: translateY(-6px);
   border-color: var(--line-strong);
-  box-shadow: 0 30px 60px -40px rgba(0, 0, 0, 0.9);
+  box-shadow: 0 30px 60px -40px rgba(17, 26, 43, 0.9);
 }
 
 .tier-card--featured {
   border-color: var(--gold-line);
-  background: linear-gradient(170deg, rgba(38, 32, 14, 0.55), rgba(8, 23, 17, 0.7));
+  background: linear-gradient(170deg, rgba(31, 69, 201, 0.55), rgba(239, 232, 219, 0.7));
 }
 
 .tier-card--featured:hover {
   border-color: var(--gold);
-  box-shadow: 0 30px 70px -40px rgba(227, 180, 91, 0.45);
+  box-shadow: 0 30px 70px -40px rgba(31, 69, 201, 0.45);
 }
 
 .tier-flag {
@@ -1214,7 +1244,7 @@ button {
   align-items: flex-start;
   gap: 0.35rem;
   padding: 1.7rem 1.5rem;
-  background: linear-gradient(170deg, rgba(16, 42, 32, 0.45), rgba(8, 23, 17, 0.55));
+  background: linear-gradient(170deg, rgba(255, 253, 247, 0.45), rgba(239, 232, 219, 0.55));
   border: 1px solid var(--line);
   border-radius: var(--radius-card);
   text-align: left;
@@ -1226,7 +1256,7 @@ button {
 .profile-card:hover {
   transform: translateY(-6px);
   border-color: var(--gold-line);
-  box-shadow: 0 30px 60px -40px rgba(0, 0, 0, 0.9);
+  box-shadow: 0 30px 60px -40px rgba(17, 26, 43, 0.9);
 }
 
 .profile-card .avatar {
@@ -1292,7 +1322,7 @@ button {
   grid-template-columns: auto minmax(0, 1fr);
   gap: 1.4rem;
   padding: 1.7rem 1.6rem;
-  background: linear-gradient(170deg, rgba(16, 42, 32, 0.45), rgba(8, 23, 17, 0.55));
+  background: linear-gradient(170deg, rgba(255, 253, 247, 0.45), rgba(239, 232, 219, 0.55));
   border: 1px solid var(--line);
   border-radius: var(--radius-card);
   transition: border-color 0.4s var(--ease), transform 0.4s var(--ease);
@@ -1325,7 +1355,7 @@ button {
   padding: 0.55rem 0.4rem;
   border: 1px solid var(--line);
   border-radius: 12px;
-  background: rgba(5, 15, 11, 0.5);
+  background: rgba(255, 253, 247, 0.5);
   align-self: start;
 }
 
@@ -1424,11 +1454,11 @@ dialog.profile-dialog {
   background: var(--bg-2);
   color: var(--text);
   overflow: hidden;
-  box-shadow: 0 50px 120px -40px rgba(0, 0, 0, 0.95);
+  box-shadow: 0 50px 120px -40px rgba(17, 26, 43, 0.95);
 }
 
 dialog.profile-dialog::backdrop {
-  background: rgba(3, 8, 6, 0.82);
+  background: rgba(11, 19, 34, 0.82);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
 }
@@ -1450,7 +1480,7 @@ dialog.profile-dialog::backdrop {
   place-items: center;
   border: 1px solid var(--line-strong);
   border-radius: 50%;
-  background: rgba(5, 15, 11, 0.7);
+  background: rgba(255, 253, 247, 0.7);
   color: var(--muted);
   font-size: 1.1rem;
   transition: color 0.3s var(--ease), border-color 0.3s var(--ease);
@@ -1562,9 +1592,9 @@ dialog.profile-dialog::backdrop {
   z-index: -1;
   background: linear-gradient(
     115deg,
-    rgba(5, 15, 11, 0.96) 6%,
-    rgba(8, 23, 17, 0.55) 50%,
-    rgba(5, 15, 11, 0.94) 94%
+    rgba(255, 253, 247, 0.96) 6%,
+    rgba(239, 232, 219, 0.55) 50%,
+    rgba(255, 253, 247, 0.94) 94%
   );
 }
 
@@ -1593,7 +1623,7 @@ dialog.profile-dialog::backdrop {
   background: var(--paper);
   color: var(--paper-ink);
   padding-block: clamp(6.5rem, 11vw, 9.5rem);
-  border-block: 1px solid rgba(20, 41, 29, 0.25);
+  border-block: 1px solid rgba(17, 26, 43, 0.25);
 }
 
 .charter-grid {
@@ -1633,12 +1663,12 @@ dialog.profile-dialog::backdrop {
   grid-template-columns: 72px 1fr;
   gap: 1.5rem;
   padding-block: 1.65rem;
-  border-top: 1px solid rgba(20, 41, 29, 0.16);
+  border-top: 1px solid rgba(17, 26, 43, 0.16);
   transition: transform 0.4s var(--ease);
 }
 
 .articles li:last-child {
-  border-bottom: 1px solid rgba(20, 41, 29, 0.16);
+  border-bottom: 1px solid rgba(17, 26, 43, 0.16);
 }
 
 .articles li:hover {
@@ -1736,7 +1766,7 @@ dialog.profile-dialog::backdrop {
   line-height: 1;
   letter-spacing: -0.02em;
   color: transparent;
-  -webkit-text-stroke: 1px rgba(226, 232, 222, 0.09);
+  -webkit-text-stroke: 1px rgba(17, 26, 43, 0.09);
   pointer-events: none;
   user-select: none;
 }
@@ -1854,7 +1884,7 @@ dialog.profile-dialog::backdrop {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(165deg, rgba(227, 180, 91, 0.32), rgba(5, 15, 11, 0.6) 80%);
+  background: linear-gradient(165deg, rgba(31, 69, 201, 0.32), rgba(255, 253, 247, 0.6) 80%);
   mix-blend-mode: multiply;
 }
 
@@ -1864,7 +1894,7 @@ dialog.profile-dialog::backdrop {
   right: -26px;
   width: 118px;
   height: 118px;
-  filter: drop-shadow(0 12px 30px rgba(0, 0, 0, 0.5));
+  filter: drop-shadow(0 12px 30px rgba(17, 26, 43, 0.5));
 }
 
 .seal-rotate {
@@ -1976,7 +2006,7 @@ dialog.profile-dialog::backdrop {
 
 .apply {
   position: relative;
-  background: linear-gradient(160deg, var(--bg-3), #071710 72%);
+  background: linear-gradient(160deg, var(--bg-3), #efe8db 72%);
   border-top: 1px solid var(--line);
   padding-block: clamp(5.5rem, 10vw, 8.5rem);
   overflow: hidden;
@@ -2112,13 +2142,13 @@ dialog.profile-dialog::backdrop {
   user-select: none;
   pointer-events: none;
   color: transparent;
-  -webkit-text-stroke: 1.5px rgba(226, 232, 222, 0.08);
+  -webkit-text-stroke: 1.5px rgba(17, 26, 43, 0.08);
   transform: translateY(16%);
 }
 
 @supports not (-webkit-text-stroke: 1px black) {
   .footer-watermark {
-    color: rgba(226, 232, 222, 0.05);
+    color: rgba(17, 26, 43, 0.05);
   }
 }
 
@@ -2171,7 +2201,7 @@ dialog.profile-dialog::backdrop {
   right: -10%;
   width: min(620px, 60vw);
   aspect-ratio: 1;
-  background: radial-gradient(circle, rgba(227, 180, 91, 0.12), transparent 65%);
+  background: radial-gradient(circle, rgba(31, 69, 201, 0.12), transparent 65%);
   pointer-events: none;
 }
 
@@ -2296,7 +2326,7 @@ dialog.profile-dialog::backdrop {
 /* ---------- generic cards / grids ---------- */
 
 .card {
-  background: linear-gradient(170deg, rgba(16, 42, 32, 0.45), rgba(8, 23, 17, 0.55));
+  background: linear-gradient(170deg, rgba(255, 253, 247, 0.45), rgba(239, 232, 219, 0.55));
   border: 1px solid var(--line);
   border-radius: var(--radius-card);
   padding: 1.9rem 1.7rem;
@@ -2324,7 +2354,7 @@ dialog.profile-dialog::backdrop {
 .how-card {
   position: relative;
   padding: 1.7rem 1.6rem;
-  background: linear-gradient(170deg, rgba(16, 42, 32, 0.45), rgba(8, 23, 17, 0.55));
+  background: linear-gradient(170deg, rgba(255, 253, 247, 0.45), rgba(239, 232, 219, 0.55));
   border: 1px solid var(--line);
   border-radius: var(--radius-card);
 }
@@ -2371,7 +2401,7 @@ dialog.profile-dialog::backdrop {
 /* ---------- forms ---------- */
 
 .form-card {
-  background: linear-gradient(170deg, rgba(16, 42, 32, 0.5), rgba(8, 23, 17, 0.65));
+  background: linear-gradient(170deg, rgba(255, 253, 247, 0.5), rgba(239, 232, 219, 0.65));
   border: 1px solid var(--line-strong);
   border-radius: var(--radius-card);
   padding: clamp(1.6rem, 4vw, 2.5rem);
@@ -2414,7 +2444,7 @@ dialog.profile-dialog::backdrop {
 .field textarea {
   width: 100%;
   padding: 0.85rem 1rem;
-  background: rgba(5, 15, 11, 0.55);
+  background: rgba(255, 253, 247, 0.55);
   border: 1px solid var(--line-strong);
   border-radius: var(--radius-input);
   color: var(--text);
@@ -2432,7 +2462,7 @@ dialog.profile-dialog::backdrop {
 .field select {
   appearance: none;
   -webkit-appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 256 256'%3E%3Cpath fill='%2386988c' d='m213.66 101.66-80 80a8 8 0 0 1-11.32 0l-80-80a8 8 0 0 1 11.32-11.32L128 164.69l74.34-74.35a8 8 0 0 1 11.32 11.32Z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 256 256'%3E%3Cpath fill='%23707887' d='m213.66 101.66-80 80a8 8 0 0 1-11.32 0l-80-80a8 8 0 0 1 11.32-11.32L128 164.69l74.34-74.35a8 8 0 0 1 11.32 11.32Z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 1rem center;
   padding-right: 2.6rem;
@@ -2571,7 +2601,7 @@ dialog.profile-dialog::backdrop {
 .step.done .step-num {
   background: var(--gold);
   border-color: var(--gold);
-  color: var(--ink);
+  color: var(--on-accent);
 }
 
 .step-label {
@@ -2658,7 +2688,7 @@ dialog.profile-dialog::backdrop {
   flex-direction: column;
   gap: 0.55rem;
   padding: 1.4rem 1.4rem;
-  background: rgba(5, 15, 11, 0.5);
+  background: rgba(255, 253, 247, 0.5);
   border: 1px solid var(--line-strong);
   border-radius: 16px;
   cursor: pointer;
@@ -2727,7 +2757,7 @@ dialog.profile-dialog::backdrop {
 
 .option-card:has(input:checked) {
   border-color: var(--gold);
-  background: linear-gradient(170deg, rgba(38, 32, 14, 0.5), rgba(8, 23, 17, 0.6));
+  background: linear-gradient(170deg, rgba(31, 69, 201, 0.5), rgba(239, 232, 219, 0.6));
   box-shadow: 0 0 0 3px var(--gold-dim);
 }
 
@@ -2845,8 +2875,8 @@ dialog.profile-dialog::backdrop {
   padding: clamp(1.1rem, 3vw, 1.7rem);
   border-radius: 20px;
   border: 1px solid var(--gold-line);
-  background: linear-gradient(135deg, #0d251b 0%, #050f0b 65%),
-    repeating-linear-gradient(115deg, rgba(227, 180, 91, 0.05) 0 1px, transparent 1px 15px);
+  background: linear-gradient(135deg, #16223a 0%, #f6f2e9 65%),
+    repeating-linear-gradient(115deg, rgba(31, 69, 201, 0.05) 0 1px, transparent 1px 15px);
   overflow: hidden;
   isolation: isolate;
   -webkit-print-color-adjust: exact;
@@ -2860,7 +2890,7 @@ dialog.profile-dialog::backdrop {
   right: -20%;
   width: 70%;
   aspect-ratio: 1;
-  background: radial-gradient(circle, rgba(227, 180, 91, 0.16), transparent 65%);
+  background: radial-gradient(circle, rgba(31, 69, 201, 0.16), transparent 65%);
   z-index: -1;
   pointer-events: none;
 }
@@ -2934,7 +2964,7 @@ dialog.profile-dialog::backdrop {
   grid-template-columns: 1.4fr 1fr 1fr;
   gap: 0.75rem;
   padding-top: 0.85rem;
-  border-top: 1px solid rgba(227, 180, 91, 0.22);
+  border-top: 1px solid rgba(31, 69, 201, 0.22);
 }
 
 .id-grid > div {
@@ -3005,9 +3035,9 @@ dialog.profile-dialog::backdrop {
   max-width: 170px;
   background: repeating-linear-gradient(
     90deg,
-    rgba(239, 242, 234, 0.75) 0 2px,
+    rgba(246, 242, 233, 0.75) 0 2px,
     transparent 2px 5px,
-    rgba(239, 242, 234, 0.75) 5px 6px,
+    rgba(246, 242, 233, 0.75) 5px 6px,
     transparent 6px 11px
   );
   opacity: 0.7;
@@ -3115,7 +3145,7 @@ dialog.profile-dialog::backdrop {
   font-size: 1.5rem;
   flex-shrink: 0;
   border: 1px solid var(--line-strong);
-  background: rgba(226, 232, 222, 0.05);
+  background: rgba(17, 26, 43, 0.05);
   color: var(--muted);
 }
 
@@ -3139,7 +3169,7 @@ dialog.profile-dialog::backdrop {
 
 .result-head--ok {
   border-color: var(--ok-line);
-  background: linear-gradient(160deg, rgba(111, 211, 155, 0.09), var(--bg-2) 70%);
+  background: linear-gradient(160deg, rgba(22, 115, 90, 0.09), var(--bg-2) 70%);
 }
 
 .result-head--ok .result-icon {
@@ -3150,7 +3180,7 @@ dialog.profile-dialog::backdrop {
 
 .result-head--pending {
   border-color: var(--gold-line);
-  background: linear-gradient(160deg, rgba(227, 180, 91, 0.09), var(--bg-2) 70%);
+  background: linear-gradient(160deg, rgba(31, 69, 201, 0.09), var(--bg-2) 70%);
 }
 
 .result-head--pending .result-icon {
@@ -3161,7 +3191,7 @@ dialog.profile-dialog::backdrop {
 
 .result-head--fail {
   border-color: var(--danger-line);
-  background: linear-gradient(160deg, rgba(232, 146, 124, 0.08), var(--bg-2) 70%);
+  background: linear-gradient(160deg, rgba(184, 64, 31, 0.08), var(--bg-2) 70%);
 }
 
 .result-head--fail .result-icon {
@@ -3220,15 +3250,15 @@ dialog.profile-dialog::backdrop {
 }
 
 .result-notice--warn {
-  color: #e8cf9a;
-  border-color: rgba(232, 207, 154, 0.35);
-  background: rgba(232, 207, 154, 0.07);
+  color: #8a5a12;
+  border-color: rgba(138, 90, 18, 0.35);
+  background: rgba(138, 90, 18, 0.07);
 }
 
 .result-notice--bad {
-  color: #f0a08a;
-  border-color: rgba(240, 160, 138, 0.4);
-  background: rgba(240, 160, 138, 0.07);
+  color: #b8401f;
+  border-color: rgba(184, 64, 31, 0.4);
+  background: rgba(184, 64, 31, 0.07);
 }
 
 .result-actions {
@@ -3287,7 +3317,7 @@ dialog.profile-dialog::backdrop {
   gap: 1.1rem;
   align-items: center;
   padding: 0.95rem 1.2rem;
-  background: rgba(11, 32, 24, 0.4);
+  background: rgba(255, 253, 247, 0.4);
   border: 1px solid var(--line);
   border-radius: 14px;
   transition: border-color 0.35s var(--ease), background 0.35s var(--ease);
@@ -3295,7 +3325,7 @@ dialog.profile-dialog::backdrop {
 
 .dir-row:hover {
   border-color: var(--line-strong);
-  background: rgba(16, 42, 32, 0.5);
+  background: rgba(255, 253, 247, 0.5);
 }
 
 .dir-name {
@@ -3395,7 +3425,7 @@ dialog.profile-dialog::backdrop {
   gap: 1.1rem;
   justify-items: center;
   padding: clamp(2rem, 5vw, 3rem);
-  background: linear-gradient(170deg, rgba(16, 42, 32, 0.5), rgba(8, 23, 17, 0.65));
+  background: linear-gradient(170deg, rgba(255, 253, 247, 0.5), rgba(239, 232, 219, 0.65));
   border: 1px solid var(--line-strong);
   border-radius: var(--radius-card);
 }
@@ -3443,13 +3473,13 @@ dialog.profile-dialog::backdrop {
   padding: 1.1rem 1.4rem;
   border: 1px solid var(--ok-line);
   border-radius: 16px;
-  background: linear-gradient(160deg, rgba(111, 211, 155, 0.1), var(--bg-2) 75%);
+  background: linear-gradient(160deg, rgba(22, 115, 90, 0.1), var(--bg-2) 75%);
   margin-bottom: 2rem;
 }
 
 .portal-banner--pending {
   border-color: var(--gold-line);
-  background: linear-gradient(160deg, rgba(227, 180, 91, 0.1), var(--bg-2) 75%);
+  background: linear-gradient(160deg, rgba(31, 69, 201, 0.1), var(--bg-2) 75%);
 }
 
 .portal-banner .avatar {
@@ -3515,7 +3545,7 @@ dialog.profile-dialog::backdrop {
 .tab-btn.active {
   background: var(--gold);
   border-color: var(--gold);
-  color: var(--ink);
+  color: var(--on-accent);
   font-weight: 700;
 }
 
@@ -3578,19 +3608,19 @@ dialog.profile-dialog::backdrop {
 .status-pill.is-good {
   color: var(--gold);
   border-color: var(--gold-line);
-  background: rgba(227, 180, 91, 0.08);
+  background: rgba(31, 69, 201, 0.08);
 }
 
 .status-pill.is-warn {
-  color: #e8cf9a;
-  border-color: rgba(232, 207, 154, 0.35);
-  background: rgba(232, 207, 154, 0.08);
+  color: #8a5a12;
+  border-color: rgba(138, 90, 18, 0.35);
+  background: rgba(138, 90, 18, 0.08);
 }
 
 .status-pill.is-bad {
-  color: #f0a08a;
-  border-color: rgba(240, 160, 138, 0.4);
-  background: rgba(240, 160, 138, 0.08);
+  color: #b8401f;
+  border-color: rgba(184, 64, 31, 0.4);
+  background: rgba(184, 64, 31, 0.08);
 }
 
 .metric-row {
@@ -3607,7 +3637,7 @@ dialog.profile-dialog::backdrop {
   text-align: center;
   border: 1px solid var(--line);
   border-radius: 12px;
-  background: rgba(5, 15, 11, 0.4);
+  background: rgba(255, 253, 247, 0.4);
 }
 
 .metric strong {
@@ -3656,7 +3686,7 @@ dialog.profile-dialog::backdrop {
 .meter {
   height: 6px;
   border-radius: 999px;
-  background: rgba(5, 15, 11, 0.6);
+  background: rgba(255, 253, 247, 0.6);
   border: 1px solid var(--line);
   overflow: hidden;
 }
@@ -3689,7 +3719,7 @@ dialog.profile-dialog::backdrop {
 }
 
 .form-note.is-bad {
-  color: #f0a08a;
+  color: #b8401f;
 }
 
 /* ---------- CV upload + social handles ---------- */
@@ -3771,7 +3801,7 @@ dialog.profile-dialog::backdrop {
   padding: 0.5rem 0.8rem;
   border: 1px solid var(--line);
   border-radius: 999px;
-  background: rgba(5, 15, 11, 0.45);
+  background: rgba(255, 253, 247, 0.45);
   color: var(--text);
   font-size: 0.9rem;
   transition: border-color 0.3s var(--ease), background 0.3s var(--ease);
@@ -3809,7 +3839,7 @@ dialog.profile-dialog::backdrop {
 
 .cv-chip.is-static:hover {
   border-color: var(--line);
-  background: rgba(5, 15, 11, 0.45);
+  background: rgba(255, 253, 247, 0.45);
 }
 
 .social-row {
@@ -3855,7 +3885,7 @@ dialog.profile-dialog::backdrop {
   flex-direction: column;
   gap: 0.8rem;
   padding: 1.7rem 1.5rem;
-  background: linear-gradient(170deg, rgba(16, 42, 32, 0.45), rgba(8, 23, 17, 0.55));
+  background: linear-gradient(170deg, rgba(255, 253, 247, 0.45), rgba(239, 232, 219, 0.55));
   border: 1px solid var(--line);
   border-radius: var(--radius-card);
   transition: border-color 0.35s var(--ease), transform 0.35s var(--ease);
@@ -4077,7 +4107,7 @@ dialog.profile-dialog::backdrop {
   flex-direction: column;
   gap: 1rem;
   padding: 1.6rem;
-  background: linear-gradient(170deg, rgba(16, 42, 32, 0.45), rgba(8, 23, 17, 0.55));
+  background: linear-gradient(170deg, rgba(255, 253, 247, 0.45), rgba(239, 232, 219, 0.55));
   border: 1px solid var(--line);
   border-radius: var(--radius-card);
 }
@@ -4118,7 +4148,7 @@ dialog.profile-dialog::backdrop {
   padding: clamp(1.5rem, 4vw, 2.2rem);
   border: 1px solid var(--gold-line);
   border-radius: var(--radius-card);
-  background: linear-gradient(170deg, rgba(38, 32, 14, 0.45), rgba(8, 23, 17, 0.6));
+  background: linear-gradient(170deg, rgba(31, 69, 201, 0.45), rgba(239, 232, 219, 0.6));
 }
 
 .referral-box h3 {
@@ -4146,7 +4176,7 @@ dialog.profile-dialog::backdrop {
   font-family: var(--font-mono);
   font-size: 0.85rem;
   padding: 0.85rem 1rem;
-  background: rgba(5, 15, 11, 0.6);
+  background: rgba(255, 253, 247, 0.6);
   border: 1px solid var(--line-strong);
   border-radius: var(--radius-input);
   color: var(--gold);
@@ -4176,7 +4206,7 @@ dialog.profile-dialog::backdrop {
 
 .reward-row:first-child {
   border-top: 0;
-  background: rgba(226, 232, 222, 0.04);
+  background: rgba(17, 26, 43, 0.04);
   font-family: var(--font-mono);
   font-size: 10.5px;
   letter-spacing: 0.14em;
@@ -4212,7 +4242,7 @@ dialog.profile-dialog::backdrop {
   color: var(--text);
   font-size: 0.9rem;
   font-weight: 500;
-  box-shadow: 0 24px 50px -20px rgba(0, 0, 0, 0.9);
+  box-shadow: 0 24px 50px -20px rgba(17, 26, 43, 0.9);
   opacity: 0;
   transform: translate(-50%, 24px);
   pointer-events: none;
@@ -4227,6 +4257,598 @@ dialog.profile-dialog::backdrop {
 .toast.show {
   opacity: 1;
   transform: translate(-50%, 0);
+}
+
+/* ============================================================
+   BRAND 2026 — Editorial Ivory & Ink
+   Shape, type and surface refinements layered over the base system
+   ============================================================ */
+
+/* ---------- typography ---------- */
+
+.hero-title {
+  font-size: clamp(2.9rem, 6.8vw, 5.9rem);
+  font-weight: 500;
+  letter-spacing: -0.028em;
+  line-height: 1.02;
+}
+
+.hero-title .em {
+  color: var(--accent);
+  font-style: italic;
+  font-weight: 500;
+}
+
+.section-head h2,
+.vision-title,
+.charter-intro h2,
+.apply-copy h2,
+.page-hero h1,
+.band-quote,
+.letter-open,
+.signature,
+.monument-main dd,
+.monument-cell dd,
+.tier-name,
+.tier-price,
+.profile-card h3,
+.event-body h3,
+.dialog-head h3,
+.articles h3,
+.phase-years,
+.panel-head h2,
+.success-panel h2,
+.result-head h2,
+.gate h2,
+.not-found h1 {
+  font-weight: 500;
+}
+
+.section-tag,
+.section-tag span,
+.eyebrow,
+.mono-num,
+.blueprint-label,
+.charter-label {
+  color: var(--accent);
+}
+
+.section-tag span {
+  color: var(--accent-2-ink);
+}
+
+/* Section-head paragraphs are muted by the base system; keep the tag itself accent. */
+.section-head .section-tag,
+.not-found > .container > .section-tag {
+  color: var(--accent);
+}
+
+.section-head .section-tag span,
+.not-found > .container > .section-tag span {
+  color: var(--accent-2-ink);
+}
+
+.section-tag::before,
+.eyebrow::before,
+.blueprint-label::before {
+  background: var(--accent-2);
+}
+
+.hero-trust i {
+  color: var(--accent-2);
+}
+
+.hero-edge {
+  color: var(--faint);
+}
+
+.hero-lede {
+  color: var(--text-dim);
+}
+
+/* ---------- navigation ---------- */
+
+.nav {
+  top: 0;
+}
+
+.nav-inner {
+  width: min(1400px, 100%);
+  height: var(--nav-h);
+  padding-inline: clamp(1.1rem, 4vw, 2.6rem);
+  border: 0;
+  border-bottom: 1px solid transparent;
+  border-radius: 0;
+}
+
+.nav.scrolled .nav-inner {
+  background: rgba(246, 242, 233, 0.9);
+  border-bottom-color: var(--line);
+  box-shadow: 0 18px 40px -36px rgba(17, 26, 43, 0.55);
+}
+
+.brand {
+  gap: 0.8rem;
+}
+
+.brand-mark {
+  color: var(--text);
+}
+
+.brand-text strong {
+  font-family: var(--font-display);
+  font-size: 1.42rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1;
+}
+
+.brand-text small {
+  margin-top: 0.22rem;
+  font-size: 8px;
+  letter-spacing: 0.2em;
+}
+
+.nav-links {
+  gap: 1.9rem;
+}
+
+.nav-links a {
+  font-size: 0.88rem;
+  letter-spacing: 0.01em;
+}
+
+.nav-links a::after {
+  background: var(--ink);
+}
+
+.nav-links a.active::after {
+  background: var(--accent-2);
+}
+
+.mobile-menu {
+  background: rgba(246, 242, 233, 0.98);
+}
+
+.mobile-menu nav > a:not(.btn) {
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.mobile-menu nav > a:not(.btn).is-current {
+  color: var(--accent);
+}
+
+.menu-btn {
+  border-radius: var(--radius-sm);
+}
+
+/* ---------- buttons & pills ---------- */
+
+.btn {
+  padding: 1rem 1.85rem;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  letter-spacing: 0.005em;
+}
+
+.btn-primary {
+  background: var(--ink);
+  color: var(--on-accent);
+}
+
+.btn-primary:hover {
+  background: var(--accent);
+  color: var(--on-accent);
+  box-shadow: 0 16px 34px -18px rgba(31, 69, 201, 0.55);
+}
+
+.btn-ghost {
+  border-color: var(--line-strong);
+  color: var(--text);
+}
+
+.btn-ghost:hover {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--on-accent);
+}
+
+.btn-ghost.is-current {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.chip,
+.badge {
+  border-radius: var(--radius-sm);
+}
+
+.badge {
+  background: transparent;
+}
+
+/* ---------- hero & marquee ---------- */
+
+.hero-rail {
+  background: rgba(255, 253, 247, 0.55);
+}
+
+.rail-num {
+  font-weight: 500;
+}
+
+.marquee {
+  background: var(--ink);
+  border-color: var(--ink);
+}
+
+.marquee-group li {
+  color: rgba(246, 242, 233, 0.72);
+  font-weight: 500;
+  letter-spacing: 0.22em;
+}
+
+.marquee-group li::after {
+  background: var(--accent-2);
+}
+
+/* ---------- cards, grids & surfaces ---------- */
+
+.tier-card,
+.profile-card,
+.event-card,
+.event-when,
+.card,
+.how-card,
+.form-card,
+.option-card,
+.review-list,
+.result-head,
+.result-meta,
+.result-notice,
+.dir-row,
+.gate,
+.portal-banner,
+.metric,
+.resource-card,
+.swatch,
+.type-specimen,
+.voice-col,
+.template-card,
+.referral-box,
+.reward-table,
+.stat-strip,
+.not-found-links a {
+  border-radius: var(--radius-sm);
+}
+
+.dialog-meta,
+.review-list,
+.result-meta,
+.reward-table,
+.stat-strip {
+  border-radius: var(--radius-sm);
+}
+
+.tier-card:hover,
+.profile-card:hover,
+.event-card:hover {
+  box-shadow: 0 26px 52px -40px rgba(17, 26, 43, 0.45);
+}
+
+.profile-card:hover,
+.event-card:hover,
+.resource-card:hover,
+.not-found-links a:hover {
+  border-color: var(--accent);
+}
+
+.tier-card--featured {
+  background: linear-gradient(170deg, rgba(31, 69, 201, 0.08), rgba(255, 253, 247, 0.6));
+}
+
+.tier-card--featured:hover {
+  border-color: var(--accent);
+  box-shadow: 0 28px 60px -40px rgba(31, 69, 201, 0.5);
+}
+
+.profile-role,
+.event-day,
+.event-status--new,
+.dir-view,
+.copy-btn,
+.status-pill.is-good,
+.metric strong,
+.mini-list i.is-good {
+  color: var(--accent);
+}
+
+.event-when {
+  background: rgba(255, 253, 247, 0.6);
+}
+
+.event-when,
+.event-month {
+  border-radius: var(--radius-sm);
+}
+
+.how-card .how-idx {
+  color: var(--accent-2-ink);
+}
+
+.how-card .how-idx::after {
+  background: var(--accent-2-line);
+}
+
+.option-card:has(input:checked) {
+  background: linear-gradient(170deg, rgba(31, 69, 201, 0.08), rgba(255, 253, 247, 0.6));
+  box-shadow: 0 0 0 3px var(--gold-dim);
+}
+
+.option-card .option-mark,
+.option-card .option-mark::after,
+.step-num,
+.result-head .result-icon,
+.gate-icon,
+.success-mark,
+.social-link,
+.dialog-close,
+.step-bar,
+.meter {
+  border-radius: var(--radius-sm);
+}
+
+.tab-btn,
+.dir-view,
+.copy-btn,
+.status-pill,
+.demo-hint button {
+  border-radius: var(--radius-sm);
+}
+
+/* ---------- forms ---------- */
+
+.field input,
+.field select,
+.field textarea,
+.referral-row input {
+  background: rgba(255, 253, 247, 0.72);
+  border-radius: var(--radius-sm);
+}
+
+.field select option {
+  background: var(--bg-2);
+  color: var(--text);
+}
+
+/* ---------- page hero ---------- */
+
+.page-hero::before {
+  background: radial-gradient(circle, rgba(31, 69, 201, 0.12), transparent 65%);
+}
+
+.page-hero h1 .em {
+  color: var(--accent);
+  font-style: italic;
+}
+
+/* ---------- tagline band (image) ---------- */
+
+.tagline-band {
+  --text: var(--paper);
+  --muted: rgba(246, 242, 233, 0.78);
+  --faint: rgba(246, 242, 233, 0.6);
+  color: var(--paper);
+}
+
+.tagline-band::after {
+  background: linear-gradient(
+    115deg,
+    rgba(11, 19, 34, 0.96) 6%,
+    rgba(17, 26, 43, 0.68) 50%,
+    rgba(11, 19, 34, 0.94) 94%
+  );
+}
+
+.band-quote span {
+  color: #a9bcff;
+}
+
+/* ---------- charter — dark editorial inset ---------- */
+
+.charter {
+  background: var(--ink);
+  color: var(--paper);
+  border-block: 1px solid rgba(246, 242, 233, 0.14);
+  --paper-ink: var(--paper);
+  --paper-muted: #b8bfca;
+  --paper-gold: #a9bcff;
+}
+
+.charter .charter-foot {
+  border-top-color: rgba(246, 242, 233, 0.35);
+}
+
+.charter .articles li,
+.charter .articles li:last-child {
+  border-color: rgba(246, 242, 233, 0.14);
+}
+
+/* ---------- founder portrait ---------- */
+
+.duotone::after {
+  background: linear-gradient(165deg, rgba(31, 69, 201, 0.42), rgba(14, 23, 38, 0.72) 80%);
+  mix-blend-mode: multiply;
+}
+
+.seal {
+  filter: drop-shadow(0 14px 28px rgba(17, 26, 43, 0.35));
+}
+
+.seal-text {
+  fill: var(--paper);
+}
+
+/* ---------- apply — cobalt statement ---------- */
+
+.apply {
+  background: var(--accent);
+  border-top: 0;
+  color: var(--paper);
+  --text: var(--paper);
+  --muted: rgba(248, 244, 234, 0.8);
+  --faint: rgba(248, 244, 234, 0.66);
+  --line: rgba(248, 244, 234, 0.2);
+  --line-strong: rgba(248, 244, 234, 0.36);
+  --gold: var(--paper);
+  --gold-line: rgba(248, 244, 234, 0.45);
+  --gold-dim: rgba(248, 244, 234, 0.12);
+  --ink: #111a2b;
+  --on-accent: var(--paper);
+}
+
+.apply .section-tag {
+  color: var(--paper);
+}
+
+.apply .section-tag::before {
+  background: var(--paper);
+}
+
+.apply .section-tag span {
+  color: rgba(248, 244, 234, 0.6);
+}
+
+.apply .btn-primary {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.apply .btn-primary:hover {
+  background: #000;
+}
+
+.apply .btn-ghost {
+  border-color: rgba(248, 244, 234, 0.55);
+  color: var(--paper);
+}
+
+.apply .btn-ghost:hover {
+  background: var(--paper);
+  border-color: var(--paper);
+  color: var(--ink);
+}
+
+.apply .apply-steps .step-idx {
+  color: var(--paper);
+  border-color: rgba(248, 244, 234, 0.4);
+  background: rgba(248, 244, 234, 0.12);
+}
+
+/* ---------- footer — ink ---------- */
+
+.footer {
+  background: var(--ink);
+  color: var(--paper);
+  border-top: 0;
+  --bg: var(--ink);
+  --text: var(--paper);
+  --muted: #b8bfca;
+  --faint: #8d95a2;
+  --line: rgba(246, 242, 233, 0.14);
+  --line-strong: rgba(246, 242, 233, 0.28);
+  --gold: #a9bcff;
+  --gold-2: #c9d4ff;
+  --gold-dim: rgba(169, 188, 255, 0.12);
+  --gold-line: rgba(169, 188, 255, 0.4);
+}
+
+.footer .brand-mark {
+  color: var(--paper);
+}
+
+.footer .footer-watermark {
+  color: transparent;
+  -webkit-text-stroke-color: rgba(246, 242, 233, 0.12);
+}
+
+.footer .footer-bar {
+  background: transparent;
+  border-color: rgba(246, 242, 233, 0.14);
+  color: var(--faint);
+}
+
+/* ---------- digital member ID card — ink on paper ---------- */
+
+.id-card {
+  --text: #f6f2e9;
+  --muted: #b8bfca;
+  --faint: #8d95a2;
+  --gold: #a9bcff;
+  --gold-2: #c9d4ff;
+  --gold-line: rgba(169, 188, 255, 0.38);
+  --line: rgba(246, 242, 233, 0.16);
+  --line-strong: rgba(246, 242, 233, 0.28);
+  --bg-2: #16223a;
+  --bg-3: #182640;
+  --bg-4: #1d2d4a;
+  color: var(--text);
+  border-color: rgba(246, 242, 233, 0.22);
+  border-radius: 4px;
+  background:
+    radial-gradient(120% 130% at 100% 0%, rgba(31, 69, 201, 0.38) 0%, transparent 55%),
+    linear-gradient(135deg, #16223a 0%, #0b1322 65%),
+    repeating-linear-gradient(115deg, rgba(246, 242, 233, 0.03) 0 1px, transparent 1px 15px);
+}
+
+.id-card::before {
+  background: radial-gradient(circle, rgba(31, 69, 201, 0.32), transparent 65%);
+}
+
+.id-card .brand-mark {
+  color: var(--paper);
+}
+
+.id-card .id-grid {
+  border-top-color: rgba(246, 242, 233, 0.22);
+}
+
+.id-qr {
+  border-radius: 2px;
+}
+
+/* ---------- dialogs, toast & misc ---------- */
+
+dialog.profile-dialog {
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  color: var(--text);
+}
+
+dialog.profile-dialog::backdrop {
+  background: rgba(11, 19, 34, 0.55);
+}
+
+.dialog-close {
+  background: var(--bg);
+}
+
+.dialog-meta > div,
+.result-meta > div {
+  background: var(--bg-2);
+}
+
+.toast {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: rgba(169, 188, 255, 0.55);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 26px 50px -24px rgba(11, 19, 34, 0.6);
+}
+
+.toast i {
+  color: #7bd6b0;
 }
 
 /* ============================================================
@@ -4652,7 +5274,7 @@ dialog.profile-dialog::backdrop {
   padding: 1rem 1.15rem;
   border: 1px solid var(--line);
   border-radius: var(--radius-card);
-  background: linear-gradient(170deg, rgba(16, 42, 32, 0.4), rgba(8, 23, 17, 0.5));
+  background: linear-gradient(170deg, rgba(255, 253, 247, 0.4), rgba(239, 232, 219, 0.5));
   color: var(--text);
   text-decoration: none;
   transition: border-color 0.35s var(--ease), transform 0.35s var(--ease), color 0.35s var(--ease);
@@ -4693,7 +5315,7 @@ dialog.profile-dialog::backdrop {
     height: 54mm;
     aspect-ratio: auto;
     padding: 4mm 5mm;
-    border: 1px solid #c9a45c;
+    border: 1px solid #1f45c9;
     border-radius: 3.18mm;
     page-break-inside: avoid;
     break-inside: avoid;
@@ -4770,3 +5392,29 @@ dialog.profile-dialog::backdrop {
     animation: none;
   }
 }
+
+/* Partners Section */
+.partners-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--gap-4); align-items: center; margin-top: var(--gap-6); }
+.partner-item { background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius-lg); padding: var(--gap-4); display: flex; align-items: center; justify-content: center; min-height: 140px; transition: box-shadow var(--ease), transform var(--ease); }
+.partner-item:hover { box-shadow: var(--shadow-1); transform: translateY(-2px); }
+.partner-item img { max-width: 100%; max-height: 80px; width: auto; height: auto; object-fit: contain; filter: grayscale(100%); opacity: 0.85; transition: filter var(--ease), opacity var(--ease); }
+.partner-item:hover img { filter: grayscale(0%); opacity: 1; }
+@media (max-width: 680px) { .partners-grid { grid-template-columns: 1fr; } }
+
+/* Partners Carousel */
+.partners-carousel { overflow: hidden; position: relative; margin-top: var(--gap-6); padding: var(--gap-4) 0; }
+.partners-track { display: flex; gap: var(--gap-6); align-items: center; animation: partners-scroll 20s linear infinite; width: max-content; }
+.partners-carousel:hover .partners-track { animation-play-state: paused; }
+.partner-item { flex: 0 0 auto; background: transparent; border: none; min-height: 100px; padding: var(--gap-2) var(--gap-4); }
+.partner-item img { max-height: 70px; filter: brightness(1.3) contrast(1.1); opacity: 0.95; transition: filter var(--ease), opacity var(--ease), transform var(--ease); }
+.partner-item:hover img { filter: brightness(1.5) contrast(1.2); opacity: 1; transform: scale(1.05); }
+@keyframes partners-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@media (max-width: 680px) { .partner-item img { max-height: 50px; } .partners-track { gap: var(--gap-4); animation-duration: 15s; } }
+
+/* Partners sizing override */
+.partners-grid .partner-item { min-height: 200px; padding: var(--gap-6); }
+.partners-grid .partner-item img { max-height: 140px; max-width: 280px; }
+@media (max-width: 680px) { .partners-grid .partner-item img { max-height: 100px; } .partners-grid .partner-item { min-height: 140px; padding: var(--gap-4); } }
+
+.section-head h2 { position: relative; }
+.section-head h2::after { content: ''; display: block; width: 60px; height: 2px; background: linear-gradient(90deg, var(--accent) 0%, var(--accent-2) 100%); margin-top: 1.2rem; }

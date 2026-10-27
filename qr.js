@@ -6,7 +6,7 @@
 
    Usage:
      WEA_QR.svg("https://example.com/verify.html?id=WEA-2026-000001",
-                { size: 128, margin: 2, dark: "#050f0b", light: "#fff" })
+                { size: 128, margin: 2, dark: "#111a2b", light: "#fff" })
    Returns an SVG string, or "" if the payload is too long.
 
    Implementation follows the reference algorithm published by
@@ -587,7 +587,7 @@
     opts = opts || {};
     var px = opts.size || 128;
     var margin = opts.margin == null ? 2 : opts.margin;
-    var dark = opts.dark || "#050f0b";
+    var dark = opts.dark || "#111a2b";
     var light = opts.light || "#ffffff";
 
     var m = build(text);

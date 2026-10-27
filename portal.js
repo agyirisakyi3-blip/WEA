@@ -569,12 +569,9 @@
 
   var LOGO_SVG =
     '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" width="512" height="512">' +
-    '<rect width="44" height="44" fill="#050F0B"/>' +
-    '<g fill="none" stroke="#E3B45B" stroke-width="2">' +
-    '<circle cx="22" cy="23" r="16.5"/>' +
-    '<path d="M9.5 17L15 30L22 15.5L29 30L34.5 17" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>' +
-    "</g>" +
-    '<path d="M22 8.6l2.1 2.1-2.1 2.1-2.1-2.1z" fill="#E3B45B"/>' +
+    '<rect width="44" height="44" fill="#F6F2E9"/>' +
+    '<path d="M5 33.5 13.75 10.5 22 26.25 30.25 10.5 39 33.5" fill="none" stroke="#111A2B" stroke-width="3" stroke-linejoin="miter" stroke-linecap="square"/>' +
+    '<rect x="33" y="4" width="7" height="7" fill="#1F45C9"/>' +
     "</svg>";
 
   function download(name, content, type) {

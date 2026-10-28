@@ -30,7 +30,14 @@ var CONFIG = {
 
   /* CVs arrive base64-encoded. This is the ceiling the website also
      enforces, kept here so a hand-crafted request cannot flood Drive. */
-  CV_MAX_BYTES: 1.5 * 1024 * 1024
+  CV_MAX_BYTES: 1.5 * 1024 * 1024,
+
+  /* Book library. Books and covers are filed in Drive; the Library tab
+     keeps the metadata and the Drive links. */
+  LIBRARY_SHEET_NAME: "Library",
+  LIBRARY_FOLDER_ID: "",
+  BOOK_MAX_BYTES: 25 * 1024 * 1024,
+  COVER_MAX_BYTES: 6 * 1024 * 1024
 };
 
 var HEADERS = [
@@ -39,12 +46,19 @@ var HEADERS = [
   "Website", "Class", "Joined", "Referred by", "Socials", "Notes", "CV"
 ];
 
+var LIBRARY_HEADERS = [
+  "Timestamp", "Book ID", "Title", "Author", "Author bio", "Author link",
+  "Category", "Year", "Language", "Description", "Cover ID", "Cover URL",
+  "PDF ID", "Preview URL", "View URL", "Download URL", "PDF name", "Size",
+  "Uploaded by", "Member ID", "Opens"
+];
+
 /* ---------- entry points ---------- */
 
 function doPost(e) {
   var lock = LockService.getScriptLock();
   try {
-    lock.waitLock(30000); /* one writer at a time, or rows collide */
+    lock.waitLock(60000); /* one writer at a time, or rows collide */
   } catch (err) {
     return json({ ok: false, error: "The register is busy. Please try again in a moment." });
   }
@@ -62,10 +76,19 @@ function doPost(e) {
     if (action === "update") {
       return json(update(payload));
     }
+    if (action === "book-submit") {
+      return json(saveBook(payload));
+    }
+    if (action === "book-list") {
+      return json({ ok: true, books: listBooks() });
+    }
+    if (action === "book-open") {
+      return json(markBookOpened(payload.id));
+    }
     return json({ ok: false, error: "Unknown action." });
   } catch (err) {
     /* Never leak the stack trace to the public site. */
-    return json({ ok: false, error: "We could not record that application." });
+    return json({ ok: false, error: "We could not record that request." });
   } finally {
     lock.releaseLock();
   }
@@ -229,6 +252,244 @@ function saveCv(cv) {
 
   /* Hand back a link the Secretariat can actually click. */
   return "https://drive.google.com/file/d/" + file.getId() + "/view";
+}
+
+/* ---------- library ---------- */
+
+function openLibrarySheet() {
+  var book = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = book.getSheetByName(CONFIG.LIBRARY_SHEET_NAME);
+  if (!sheet) {
+    sheet = book.insertSheet(CONFIG.LIBRARY_SHEET_NAME);
+  }
+  if (sheet.getLastRow() === 0) {
+    sheet.appendRow(LIBRARY_HEADERS);
+    sheet.getRange(1, 1, 1, LIBRARY_HEADERS.length).setFontWeight("bold");
+    sheet.setFrozenRows(1);
+  }
+  return sheet;
+}
+
+function libraryFolder() {
+  if (CONFIG.LIBRARY_FOLDER_ID) {
+    var existing = DriveApp.getFolderById(CONFIG.LIBRARY_FOLDER_ID);
+    if (existing) return existing;
+  }
+  var named = DriveApp.getFoldersByName("WEA Library");
+  if (named.hasNext()) return named.next();
+  return DriveApp.createFolder("WEA Library");
+}
+
+function safeName(value) {
+  return String(value || "file")
+    .replace(/[\\/:*?"<>|]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, 110) || "file";
+}
+
+function saveLibraryFile(payload, kind, book, maxBytes) {
+  if (!payload || !payload.base64) return {};
+  var bytes;
+  try {
+    bytes = Utilities.base64Decode(payload.base64);
+  } catch (err) {
+    return {};
+  }
+  if (!bytes || !bytes.length || bytes.length > maxBytes) return {};
+
+  var mime = payload.mime || (kind === "pdf" ? "application/pdf" : "image/jpeg");
+  if (kind === "pdf" && mime !== "application/pdf") return {};
+  if (kind === "cover" && mime.indexOf("image/") !== 0) return {};
+
+  var suffix = kind === "pdf" ? ".pdf" : ".jpg";
+  var label = (book.title || "Book") + " — " + (book.author || "Member") +
+    (kind === "cover" ? " (cover)" : "");
+  var name = safeName(label) + suffix;
+  var blob = Utilities.newBlob(bytes, mime, name);
+  var file = libraryFolder().createFile(blob);
+  file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+
+  return {
+    id: file.getId(),
+    name: name,
+    size: bytes.length,
+    mime: mime
+  };
+}
+
+function saveBook(payload) {
+  var b = payload.book || {};
+  if (!b.title) return { ok: false, error: "A book title is required." };
+  if (!b.author) return { ok: false, error: "An author name is required." };
+  if (!payload.pdf || !payload.pdf.base64) {
+    return { ok: false, error: "A PDF is required." };
+  }
+
+  var bookId = String(b.id || ("book-" + Date.now()));
+  var sheet = openLibrarySheet();
+  var rowNumber = findRow(sheet, 2, bookId); /* "Book ID" is the 2nd column */
+  var previousCoverId = "";
+  var previousOpens = 0;
+  if (rowNumber) {
+    var previous = sheet.getRange(rowNumber, 1, 1, LIBRARY_HEADERS.length).getValues()[0];
+    previousCoverId = String(previous[10] || "");
+    previousOpens = Number(previous[20]) || 0;
+  }
+
+  var pdf = saveLibraryFile(payload.pdf, "pdf", b, CONFIG.BOOK_MAX_BYTES);
+  if (!pdf.id) {
+    return { ok: false, error: "The PDF could not be stored. It may be too large." };
+  }
+
+  var cover = saveLibraryFile(payload.cover, "cover", b, CONFIG.COVER_MAX_BYTES);
+  var coverId = cover.id || previousCoverId;
+
+  var record = {
+    id: bookId,
+    title: b.title,
+    author: b.author,
+    authorBio: b.authorBio || "",
+    authorLink: b.authorLink || "",
+    category: b.category || "Entrepreneurship",
+    year: b.year || "",
+    language: b.language || "English",
+    description: b.description || "",
+    coverId: coverId,
+    pdfId: pdf.id,
+    pdfName: pdf.name || payload.pdf.name || "book.pdf",
+    size: pdf.size || 0,
+    uploadedBy: b.uploadedBy || "",
+    uploadedByName: b.uploadedByName || "",
+    createdAt: b.createdAt || new Date().toISOString(),
+    opens: previousOpens
+  };
+
+  var row = buildLibraryRow(record);
+  if (rowNumber) {
+    writeRow(sheet, rowNumber, row);
+  } else {
+    sheet.appendRow(row);
+    rowNumber = sheet.getLastRow();
+  }
+
+  var stored = publicBook(record);
+  stored.row = rowNumber;
+  return { ok: true, book: stored };
+}
+
+function buildLibraryRow(record) {
+  return [
+    new Date(),
+    record.id,
+    record.title,
+    record.author,
+    record.authorBio,
+    record.authorLink,
+    record.category,
+    record.year,
+    record.language,
+    record.description,
+    record.coverId,
+    coverUrl(record.coverId),
+    record.pdfId,
+    previewUrl(record.pdfId),
+    viewUrl(record.pdfId),
+    downloadUrl(record.pdfId),
+    record.pdfName,
+    record.size,
+    record.uploadedByName,
+    record.uploadedBy,
+    record.opens
+  ];
+}
+
+function listBooks() {
+  var sheet = openLibrarySheet();
+  var last = sheet.getLastRow();
+  if (last < 2) return [];
+
+  var values = sheet.getRange(2, 1, last - 1, LIBRARY_HEADERS.length).getValues();
+  var books = [];
+  values.forEach(function (row) {
+    var id = String(row[1] || "").trim();
+    var title = String(row[2] || "").trim();
+    if (!id || !title) return;
+    books.push(publicBook({
+      id: id,
+      title: title,
+      author: row[3],
+      authorBio: row[4],
+      authorLink: row[5],
+      category: row[6],
+      year: row[7],
+      language: row[8],
+      description: row[9],
+      coverId: row[10],
+      pdfId: row[12],
+      pdfName: row[16],
+      size: row[17],
+      uploadedByName: row[18],
+      uploadedBy: row[19],
+      createdAt: row[0] instanceof Date ? row[0].toISOString() : row[0],
+      opens: row[20]
+    }));
+  });
+  return books;
+}
+
+function publicBook(record) {
+  return {
+    id: record.id,
+    title: record.title,
+    author: record.author,
+    authorBio: record.authorBio,
+    authorLink: record.authorLink,
+    category: record.category,
+    year: record.year,
+    language: record.language,
+    description: record.description,
+    coverUrl: coverUrl(record.coverId),
+    previewUrl: previewUrl(record.pdfId),
+    viewUrl: viewUrl(record.pdfId),
+    downloadUrl: downloadUrl(record.pdfId),
+    pdfName: record.pdfName,
+    size: record.size,
+    uploadedBy: record.uploadedBy,
+    uploadedByName: record.uploadedByName,
+    createdAt: record.createdAt,
+    opens: Number(record.opens) || 0
+  };
+}
+
+function coverUrl(id) {
+  if (!id) return "";
+  return "https://drive.google.com/thumbnail?id=" + id + "&sz=w800";
+}
+
+function previewUrl(id) {
+  if (!id) return "";
+  return "https://drive.google.com/file/d/" + id + "/preview";
+}
+
+function viewUrl(id) {
+  if (!id) return "";
+  return "https://drive.google.com/file/d/" + id + "/view";
+}
+
+function downloadUrl(id) {
+  if (!id) return "";
+  return "https://drive.google.com/uc?export=download&id=" + id;
+}
+
+function markBookOpened(id) {
+  if (!id) return { ok: false, error: "A book ID is required." };
+  var sheet = openLibrarySheet();
+  var rowNumber = findRow(sheet, 2, id);
+  if (!rowNumber) return { ok: false, error: "That book was not found." };
+  var cell = sheet.getRange(rowNumber, LIBRARY_HEADERS.indexOf("Opens") + 1);
+  cell.setValue((Number(cell.getValue()) || 0) + 1);
+  return { ok: true };
 }
 
 /* ---------- utility ---------- */

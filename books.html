@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book Library — WEA | World Entrepreneurs Association</title>
+  <meta name="description" content="Read and share books by WEA members. Browse the library by title, author or category, and publish your own PDF with cover art and author details." />
+  <meta name="theme-color" content="#f6f2e9" />
+  <meta name="author" content="World Entrepreneurs Association" />
+  <meta name="robots" content="index, follow" />
+  <meta name="keywords" content="WEA library, entrepreneur books, business books, free business PDF, World Entrepreneurs Association library" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="World Entrepreneurs Association" />
+  <meta property="og:title" content="WEA Book Library — Read and share" />
+  <meta property="og:description" content="Books by entrepreneurs, for entrepreneurs. Browse the WEA library or publish your own PDF with cover art and author details." />
+  <meta property="og:url" content="https://www.worldentrepreneursassociation.org/books.html" />
+  <meta property="og:locale" content="en_GB" />
+  <meta property="og:image" content="https://www.worldentrepreneursassociation.org/social/wea-og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="WEA book library" />
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="WEA Book Library — Read and share" />
+  <meta name="twitter:description" content="Books by entrepreneurs, for entrepreneurs. Browse the WEA library or publish your own." />
+  <meta name="twitter:image" content="https://www.worldentrepreneursassociation.org/social/wea-og.png" />
+
+  <link rel="canonical" href="https://www.worldentrepreneursassociation.org/books.html" />
+  <link rel="icon" href='data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 44'><rect width='44' height='44' fill='%23F6F2E9'/><path d='M6 33.5 14.5 11.5 22 25.5 29.5 11.5 38 33.5' fill='none' stroke='%23111A2B' stroke-width='3.2' stroke-linejoin='miter' stroke-linecap='square'/><rect x='32.5' y='4.5' width='6.5' height='6.5' fill='%231F45C9'/></svg>' />
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-nav="library" data-schema="breadcrumb">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="scroll-progress" aria-hidden="true"></div>
+  <div id="sentinel" aria-hidden="true"></div>
+
+  <header class="nav">
+    <div class="nav-inner">
+      <a class="brand" href="index.html" aria-label="World Entrepreneurs Association home">
+        <svg class="brand-mark" viewBox="0 0 44 44" fill="none" aria-hidden="true">
+          <path d="M5 33.5 13.75 10.5 22 26.25 30.25 10.5 39 33.5" stroke="currentColor" stroke-width="3" stroke-linejoin="miter" stroke-linecap="square"/>
+          <rect x="33" y="4" width="7" height="7" fill="#1F45C9"/>
+        </svg>
+        <span class="brand-text">
+          <strong>WEA</strong>
+          <small>World Entrepreneurs Assoc.</small>
+        </span>
+      </a>
+
+      <nav class="nav-links" aria-label="Primary">
+        <a href="index.html#mission">Mission</a>
+        <a href="index.html#membership">Membership</a>
+        <a href="index.html#blueprint">Blueprint</a>
+        <a class="nav-link" data-nav="members" href="members.html">Members</a>
+        <a class="nav-link" data-nav="library" href="books.html">Library</a>
+        <a class="nav-link" data-nav="portal" href="portal.html">Portal</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a class="btn btn-ghost btn-sm" data-nav="verify" href="verify.html">Verify</a>
+        <a class="btn btn-primary btn-sm" data-nav="register" href="register.html">Join WEA</a>
+        <button id="menuBtn" class="menu-btn" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu">
+          <span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <nav aria-label="Mobile">
+      <a href="index.html#mission">Mission</a>
+      <a href="index.html#membership">Membership</a>
+      <a href="index.html#blueprint">Blueprint</a>
+      <a class="nav-link" data-nav="members" href="members.html">Members</a>
+      <a class="nav-link" data-nav="library" href="books.html">Library</a>
+      <a class="nav-link" data-nav="portal" href="portal.html">Portal</a>
+      <a class="nav-link" data-nav="verify" href="verify.html">Verify a member</a>
+    </nav>
+    <div class="menu-actions">
+      <a class="btn btn-primary btn-block" data-nav="register" href="register.html">Join WEA</a>
+    </div>
+  </div>
+
+  <main id="main">
+
+    <section class="page-hero library-hero">
+      <div class="container">
+        <nav class="crumbs" aria-label="Breadcrumb">
+          <a href="index.html">Home</a>
+          <i class="ph ph-caret-right" aria-hidden="true"></i>
+          <span>Book library</span>
+        </nav>
+        <p class="section-tag"><span>06</span> Knowledge from the network</p>
+        <h1>Books by entrepreneurs,<br /><em class="em">for entrepreneurs.</em></h1>
+        <p class="page-sub">Read the books, guides and playbooks members have chosen to share with the
+          network. Every title carries its author's details and cover art — and every member can add
+          one of their own.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary" href="#library">
+            Browse the library <i class="ph ph-arrow-down" aria-hidden="true"></i>
+          </a>
+          <a class="btn btn-ghost" href="#publish">
+            <i class="ph ph-book-open-text" aria-hidden="true"></i> Publish a book
+          </a>
+        </div>
+        <div class="stat-strip library-stats" id="libraryStats"></div>
+      </div>
+    </section>
+
+    <section class="section" id="library">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="section-tag"><span>01</span> The shelves</p>
+          <h2>Browse the library.</h2>
+          <p>Search by title, author or topic, then open a book in the reader. When the shared
+            library is switched on, every member sees the same shelf.</p>
+        </header>
+
+        <div class="filter-bar library-toolbar reveal">
+          <span class="input-icon">
+            <i class="ph ph-magnifying-glass" aria-hidden="true"></i>
+            <input type="search" id="bookSearch" placeholder="Search books, authors, topics…" aria-label="Search the library" autocomplete="off" />
+          </span>
+          <select id="bookCategory" aria-label="Filter by category">
+            <option value="">All categories</option>
+          </select>
+          <select id="bookSort" aria-label="Sort books">
+            <option value="newest">Newest first</option>
+            <option value="title">Title A–Z</option>
+            <option value="author">Author A–Z</option>
+            <option value="popular">Most read</option>
+          </select>
+        </div>
+
+        <div class="library-status-row">
+          <p class="dir-count mono-label" id="bookCount">Loading the library…</p>
+          <span class="library-sync mono-label" id="librarySync">
+            <i class="ph ph-circle-notch" aria-hidden="true"></i> Checking storage
+          </span>
+        </div>
+
+        <div class="book-grid" id="bookGrid" aria-live="polite"></div>
+
+        <div class="empty" id="bookEmpty" hidden>
+          <i class="ph ph-books" aria-hidden="true"></i>
+          <h3>No books on this shelf yet</h3>
+          <p>Try a different search or category. If the library is new, be the first member to
+            publish a book.</p>
+          <a class="btn btn-primary btn-sm" href="#publish">
+            Publish the first book <i class="ph ph-arrow-right" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section publish-section" id="publish">
+      <div class="container publish-grid">
+        <div class="publish-copy reveal">
+          <p class="section-tag"><span>02</span> Add to the library</p>
+          <h2>Publish your book.</h2>
+          <p>Members can share a PDF, its cover art and their author details with the network.
+            Upload once — readers open the book in the built-in reader.</p>
+          <ol class="apply-steps publish-steps">
+            <li>
+              <span class="step-idx">01</span>
+              <div>
+                <strong>Unlock with your member ID</strong>
+                <p>Your member ID or verification code confirms who is publishing.</p>
+              </div>
+            </li>
+            <li>
+              <span class="step-idx">02</span>
+              <div>
+                <strong>Add the book and its author</strong>
+                <p>Title, author name, a short bio and an optional link to their work.</p>
+              </div>
+            </li>
+            <li>
+              <span class="step-idx">03</span>
+              <div>
+                <strong>Upload the PDF and cover</strong>
+                <p>A PDF up to 25 MB and cover art up to 6 MB. No cover? We design one.</p>
+              </div>
+            </li>
+          </ol>
+          <p class="publish-guidance mono-label">Only publish work you created or have permission to share.</p>
+        </div>
+
+        <div class="publish-card reveal" id="publishCard" style="--d:120ms">
+          <div class="upload-gate" id="uploadGate">
+            <span class="gate-icon"><i class="ph ph-identification-card" aria-hidden="true"></i></span>
+            <h3>Member access</h3>
+            <p>Enter your WEA member ID or verification code to publish a book.</p>
+            <form id="uploadGateForm" novalidate>
+              <span class="input-icon">
+                <i class="ph ph-identification-card" aria-hidden="true"></i>
+                <input type="text" id="uploadGateInput" placeholder="WEA-2026-000001 or FDN1-2026" aria-label="Member ID or verification code" autocomplete="off" spellcheck="false" />
+              </span>
+              <button class="btn btn-primary btn-block" type="submit">
+                Unlock the uploader <i class="ph ph-lock-open" aria-hidden="true"></i>
+              </button>
+              <p class="gate-error" id="uploadGateError" hidden role="alert"></p>
+            </form>
+            <p class="mono-label">Not yet a member? <a class="link-gold" href="register.html">Apply in four steps</a></p>
+          </div>
+
+          <form class="upload-form" id="uploadForm" hidden novalidate>
+            <div class="upload-user">
+              <span class="avatar avatar--sm" id="uploaderAvatar" aria-hidden="true">W</span>
+              <span class="upload-user-text">
+                <strong id="uploaderName">Member</strong>
+                <span class="mono-label" id="uploaderId">Publishing to the library</span>
+              </span>
+              <button class="btn btn-ghost btn-sm" type="button" id="uploadSwitch">
+                <i class="ph ph-arrows-left-right" aria-hidden="true"></i> Switch
+              </button>
+            </div>
+
+            <div class="form-grid">
+              <div class="field field--full">
+                <label for="bookTitle">Book title <span class="req">*</span></label>
+                <input type="text" id="bookTitle" maxlength="120" autocomplete="off" />
+              </div>
+              <div class="field">
+                <label for="bookAuthor">Author name <span class="req">*</span></label>
+                <input type="text" id="bookAuthor" maxlength="100" autocomplete="name" />
+              </div>
+              <div class="field">
+                <label for="bookAuthorLink">Author link</label>
+                <input type="url" id="bookAuthorLink" placeholder="https://" autocomplete="url" />
+              </div>
+              <div class="field">
+                <label for="bookCategory">Category</label>
+                <select id="bookCategoryInput"></select>
+              </div>
+              <div class="field">
+                <label for="bookLanguage">Language</label>
+                <select id="bookLanguage"></select>
+              </div>
+              <div class="field">
+                <label for="bookYear">Year</label>
+                <input type="number" id="bookYear" min="1900" max="2100" inputmode="numeric" placeholder="2026" />
+              </div>
+              <div class="field field--full">
+                <label for="bookAuthorBio">About the author</label>
+                <textarea id="bookAuthorBio" rows="3" maxlength="600"></textarea>
+              </div>
+              <div class="field field--full">
+                <label for="bookDescription">About the book</label>
+                <textarea id="bookDescription" rows="3" maxlength="800"></textarea>
+              </div>
+            </div>
+
+            <div class="upload-dropzones">
+              <label class="upload-zone" for="bookCover" id="bookCoverZone">
+                <span class="upload-zone-icon"><i class="ph ph-image-square" aria-hidden="true"></i></span>
+                <strong>Cover art</strong>
+                <span>JPG, PNG, WebP or GIF · up to 6 MB</span>
+                <span class="upload-preview" id="bookCoverPreview"></span>
+                <input type="file" id="bookCover" accept="image/jpeg,image/png,image/webp,image/gif" />
+              </label>
+              <label class="upload-zone" for="bookPdf" id="bookPdfZone">
+                <span class="upload-zone-icon"><i class="ph ph-file-pdf" aria-hidden="true"></i></span>
+                <strong>Book PDF</strong>
+                <span>PDF only · up to 25 MB</span>
+                <span class="upload-file-chip" id="bookPdfChip" hidden></span>
+                <input type="file" id="bookPdf" accept="application/pdf,.pdf" />
+              </label>
+            </div>
+
+            <label class="checkbox-row" for="bookConsent">
+              <input type="checkbox" id="bookConsent" />
+              <span>I confirm I created this book or have permission to share it with the WEA
+                library.</span>
+            </label>
+
+            <div class="cta-row upload-actions">
+              <button class="btn btn-primary" type="submit" id="bookSubmit">
+                <i class="ph ph-cloud-arrow-up" aria-hidden="true"></i> Publish to the library
+              </button>
+              <span class="form-note" id="bookNote" role="status" aria-live="polite"></span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <dialog class="reader-dialog" id="readerDialog" aria-label="Book reader">
+    <div class="reader-shell">
+      <header class="reader-top">
+        <div class="reader-title">
+          <span class="mono-label">Now reading</span>
+          <strong id="readerTitle">Book</strong>
+          <span id="readerAuthor">Author</span>
+        </div>
+        <div class="reader-tools">
+          <button class="btn btn-ghost btn-sm" type="button" id="readerShare" hidden>
+            <i class="ph ph-link" aria-hidden="true"></i> Copy link
+          </button>
+          <a class="btn btn-ghost btn-sm" id="readerDownload" href="#" download>
+            <i class="ph ph-download-simple" aria-hidden="true"></i> Download
+          </a>
+          <a class="btn btn-ghost btn-sm" id="readerOpen" href="#" target="_blank" rel="noopener">
+            <i class="ph ph-arrow-square-out" aria-hidden="true"></i> New tab
+          </a>
+          <button class="dialog-close reader-close" type="button" id="readerClose" aria-label="Close reader">
+            <i class="ph ph-x" aria-hidden="true"></i>
+          </button>
+        </div>
+      </header>
+      <div class="reader-body">
+        <aside class="reader-info">
+          <div id="readerCover"></div>
+          <div>
+            <h2 id="readerHeading">Book</h2>
+            <p class="reader-byline" id="readerByline"></p>
+          </div>
+          <p id="readerDescription"></p>
+          <dl class="reader-meta" id="readerMeta"></dl>
+          <div class="reader-author-block" id="readerAuthorBlock"></div>
+        </aside>
+        <div class="reader-frame-wrap">
+          <iframe id="readerFrame" title="Book pages" loading="eager"></iframe>
+          <div class="reader-loading" id="readerLoading">
+            <span><i class="ph ph-circle-notch" aria-hidden="true"></i> Opening the book…</span>
+          </div>
+          <p class="reader-note" id="readerNote" hidden></p>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="index.html" aria-label="World Entrepreneurs Association home">
+          <svg class="brand-mark" viewBox="0 0 44 44" fill="none" aria-hidden="true">
+          <path d="M5 33.5 13.75 10.5 22 26.25 30.25 10.5 39 33.5" stroke="currentColor" stroke-width="3" stroke-linejoin="miter" stroke-linecap="square"/>
+          <rect x="33" y="4" width="7" height="7" fill="#1F45C9"/>
+        </svg>
+          <span class="brand-text"><strong>WEA</strong></span>
+        </a>
+        <p>Connecting entrepreneurs globally for wealth, impact &amp; legacy.</p>
+        <p class="mono-label">Est. 2026 · Accra, Ghana</p>
+      </div>
+      <nav class="footer-col" aria-label="Organization">
+        <h4 class="mono-label">Organization</h4>
+        <a href="index.html#mission">Mission</a>
+        <a href="index.html#charter">Core Values</a>
+        <a href="index.html#blueprint">Strategic Blueprint</a>
+        <a href="members.html#leadership">Executive Council</a>
+        <a href="index.html#founder">Founder</a>
+      </nav>
+      <nav class="footer-col" aria-label="Membership">
+        <h4 class="mono-label">Membership</h4>
+        <a href="register.html">Become a Member</a>
+        <a href="index.html#membership">Membership Classes</a>
+        <a href="verify.html">Verify Membership</a>
+        <a href="members.html#directory">Member Directory</a>
+        <a href="verify.html">Application Status</a>
+      </nav>
+      <nav class="footer-col" aria-label="Resources">
+        <h4 class="mono-label">Resources</h4>
+        <a href="books.html">Book Library</a>
+        <a href="portal.html">Marketing Portal</a>
+        <a href="portal.html#brand">Brand Kit</a>
+        <a href="portal.html#ambassadors">Ambassador Programme</a>
+        <a href="index.html#faq">FAQ</a>
+        <a href="https://wa.me/233533507112" target="_blank" rel="noopener">WhatsApp Secretariat</a>
+      </nav>
+    </div>
+    <div class="footer-watermark" aria-hidden="true">WEA</div>
+    <div class="container footer-bar">
+      <span>© <span id="year">2026</span> World Entrepreneurs Association. All rights reserved.</span>
+      <span><a href="privacy-policy.html">Privacy Policy</a> · <a href="terms-of-service.html">Terms of Service</a> · <span class="mono-label">Prepared by the Office of the Founder</span></span>
+    </div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="qr.js"></script>
+  <script src="store.js"></script>
+  <script src="sheet.js"></script>
+  <script src="script.js"></script>
+  <script src="seo.js"></script>
+  <script src="library.js"></script>
+  <script src="books.js"></script>
+</body>
+</html>

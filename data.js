@@ -527,5 +527,48 @@
     "#BuildGlobal"
   ];
 
+  /* ---------- Book library ---------- */
+
+  WEA_DATA.bookCategories = [
+    "Entrepreneurship",
+    "Business & Strategy",
+    "Finance & Investment",
+    "Leadership",
+    "Marketing & Sales",
+    "Technology",
+    "Personal Development",
+    "Other"
+  ];
+
+  WEA_DATA.bookLanguages = [
+    "English",
+    "French",
+    "Arabic",
+    "Portuguese",
+    "Swahili",
+    "Spanish",
+    "Other"
+  ];
+
+  /* Books shipped with the site. They are read straight from the
+     books/ folder and are always available, even without a backend. */
+
+  WEA_DATA.bookSeeds = [
+    {
+      id: "book-seed-board-trustees",
+      title: "Book Management in English",
+      author: "Bernardo Javalquinto-Lagos",
+      category: "Business & Strategy",
+      language: "English",
+      year: "2026",
+      description: "A 27-page guide to book management, prepared for the Board Trustees and shared with the WEA library.",
+      coverUrl: "books/book-management-in-english-cover.jpg",
+      pdfUrl: "books/book%20management%20in%20english%20-%20Board%20Trustees.pdf",
+      pdfName: "book management in english - Board Trustees.pdf",
+      size: 690313,
+      createdAt: "2026-07-14T13:49:16.000Z"
+    }
+  ];
+
   global.WEA_DATA = WEA_DATA;
 })(window);

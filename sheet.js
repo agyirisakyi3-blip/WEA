@@ -5,8 +5,9 @@
    trapped in each visitor's browser.
 
    localStorage stays the source of truth for the public site (the
-   verify page and member portal read from it). This module only
-   mirrors new applications out to the Sheet.
+   verify page and member portal read from it). This module mirrors
+   applications out to the Sheet and reads/writes the shared book
+   library at books.html.
 
    Config lives in WEA_DATA.sheet. When no endpoint is set the
    module reports { skipped: true } and the site behaves exactly
@@ -33,13 +34,14 @@
      trigger a CORS preflight OPTIONS request, which Apps Script web
      apps do not answer — plain text sails straight through and the
      script still reads e.postData.contents fine. */
-  function request(payload, done) {
+  function request(payload, done, timeoutMs) {
     var cfg = config();
     if (!cfg.endpoint) return done({ ok: false, skipped: true });
 
     var body = JSON.stringify(payload);
     var timer = null;
     var settled = false;
+    var limit = timeoutMs || TIMEOUT_MS;
 
     function finish(result) {
       if (settled) return;
@@ -54,7 +56,7 @@
 
     timer = global.setTimeout(function () {
       finish({ ok: false, error: "The Secretariat desk did not respond in time." });
-    }, TIMEOUT_MS);
+    }, limit);
 
     global.fetch(cfg.endpoint, {
       method: "POST",
@@ -204,10 +206,51 @@
     );
   }
 
+  /* ---------- library ---------- */
+
+  var BOOK_TIMEOUT_MS = 120000;
+
+  function listBooks(done) {
+    if (!configured()) return done({ ok: true, skipped: true, books: [] });
+    request({ action: "book-list" }, function (res) {
+      done({
+        ok: Boolean(res && res.ok),
+        skipped: Boolean(res && res.skipped),
+        books: (res && Array.isArray(res.books) ? res.books : []),
+        error: res && res.error
+      });
+    }, TIMEOUT_MS);
+  }
+
+  function submitBook(book, cover, pdf, done) {
+    if (!configured()) return done({ ok: true, skipped: true });
+    if (!book) return done({ ok: false, error: "No book supplied." });
+    if (!pdf || !pdf.base64) return done({ ok: false, error: "A PDF is required." });
+
+    request(
+      {
+        action: "book-submit",
+        book: book,
+        cover: cover || null,
+        pdf: pdf
+      },
+      done,
+      BOOK_TIMEOUT_MS
+    );
+  }
+
+  function bookOpened(id, done) {
+    if (!configured() || !id) return done({ ok: true, skipped: true });
+    request({ action: "book-open", id: id }, done, TIMEOUT_MS);
+  }
+
   global.WEA_SHEET = {
     configured: configured,
     checkEmail: checkEmail,
     submitApplication: submitApplication,
-    submitUpdate: submitUpdate
+    submitUpdate: submitUpdate,
+    listBooks: listBooks,
+    submitBook: submitBook,
+    bookOpened: bookOpened
   };
 })(window);

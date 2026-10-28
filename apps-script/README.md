@@ -9,7 +9,8 @@ It takes about ten minutes and costs nothing.
 ```
 Website  ──POST──▶  Apps Script web app  ──▶  Your Google Sheet
                                                    │
-                                                   └──▶  CVs to Google Drive
+                                                   ├──▶  CVs to Google Drive
+                                                   └──▶  Books + covers to Drive
 ```
 
 Nothing changes for visitors while the Sheet is unset — the site works
@@ -41,6 +42,10 @@ a `WEA CVs` folder in your Drive automatically. To change them, edit
 | `SHEET_NAME` | `"Applications"` | The tab rows are written to. |
 | `CV_FOLDER_ID` | `""` | Drive folder for uploaded CVs. Empty means "create `WEA CVs`". |
 | `CV_MAX_BYTES` | `1.5 MB` | Ceiling on an uploaded CV. Matches the website. |
+| `LIBRARY_SHEET_NAME` | `"Library"` | The tab holding book metadata and Drive links. |
+| `LIBRARY_FOLDER_ID` | `""` | Drive folder for book PDFs and covers. Empty means "create `WEA Library`". |
+| `BOOK_MAX_BYTES` | `25 MB` | Ceiling on an uploaded book PDF. |
+| `COVER_MAX_BYTES` | `6 MB` | Ceiling on uploaded cover art. |
 
 ## 3. Deploy it
 
@@ -93,6 +98,32 @@ your browser. You should get:
 
 ---
 
+## The shared book library
+
+The same endpoint powers the library at `books.html`. Members unlock the
+uploader with their member ID or verification code, then publish a PDF,
+cover art and author details. The script:
+
+1. Creates a **Library** tab automatically the first time the library is read.
+2. Creates a **WEA Library** folder in Drive for the PDFs and covers.
+3. Stores the metadata and public links in the Library tab.
+4. Serves the library back to every visitor through `book-list`.
+
+Set `LIBRARY_FOLDER_ID` if you want the files in a folder you already
+own. Files are shared as **anyone with the link can view**, which lets the
+reader show them without a Google sign-in. Remove the `setSharing` line in
+`saveLibraryFile` if you would rather keep the files private — readers
+will then need to sign in to Google.
+
+Books are public once shared. Only publish work you created or have
+permission to distribute. The member-ID gate on the uploader is a
+convenience check in the browser, not server-side authentication — the
+web app accepts any well-formed upload, exactly as it accepts any
+application. If abuse becomes a problem, move the endpoint behind
+*Anyone with a Google account* or add a shared secret to `CONFIG`.
+
+---
+
 ## What lands in the Sheet
 
 One row per application, with these columns:
@@ -132,11 +163,10 @@ nobody can read your Sheet through it — reads always run as your account.
 If spam ever becomes a problem, set **Who has access** to *Anyone with a
 Google account*, which makes visitors sign in first.
 
-**Edits made directly in the Sheet are not read back.** The website never
-reads the Sheet at runtime; it keeps using the browser's local copy for
-the verify page and portal. The Sheet is the Secretariat's ledger, not a
-two-way database. If you ever want members to see status changes
-immediately, that needs a different setup — ask and I will wire it.
+**The verify page and portal still use the browser's local copy.** The
+library is the exception: `books.html` reads the Library tab each time it
+loads, so a book added on one device appears on every device. Membership
+status edits still need the member's browser to carry the record.
 
 **Re-deploy after editing `Code.gs`.** Apps Script does not publish
 changes automatically. Click **Deploy ▸ Manage deployments ▸ ✏️ ▸ Version:

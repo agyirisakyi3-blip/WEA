@@ -55,7 +55,7 @@
           '<a class="profile-card reveal" style="--d:' + (i * 90 + 60) + 'ms" ' +
           'href="members.html#leadership">' +
           '<span class="profile-badge badge"><i class="ph ph-seal-check" aria-hidden="true"></i> Council</span>' +
-          WEA.avatarHTML(m.name, null, "avatar--lg") +
+          WEA.avatarHTML(m.name, m.photo, "avatar--lg") +
           "<h3>" + WEA.escapeHTML(m.name) + "</h3>" +
           '<p class="profile-role">' + WEA.escapeHTML(m.title) + "</p>" +
           '<p class="profile-region mono-label">' + WEA.escapeHTML(m.region) + "</p>" +

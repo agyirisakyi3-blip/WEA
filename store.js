@@ -45,6 +45,7 @@
         id: e.id,
         code: e.code,
         name: e.name,
+        photo: e.photo || "",
         email: "",
         phone: "",
         country: e.region,

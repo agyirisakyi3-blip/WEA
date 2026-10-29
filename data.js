@@ -53,6 +53,7 @@
       flag: "🌍",
       committee: "Office of the Founder",
       joined: "2026-01-15",
+      photo: "images/Amb.%20Prof.%20Dr.%20Jerry%20Success.jpeg",
       bio: [
         "Amb. Prof. Dr. Jerry Success founded the World Entrepreneurs Association in Accra in 2026 with one conviction: no entrepreneur should have to build alone.",
         "He leads the association's global secretariat, its ten-year blueprint and the founding membership drive spanning twenty countries.",
@@ -63,114 +64,87 @@
     {
       id: "WEA-2026-000002",
       code: "VP02-2026",
-      name: "Dr. Amara Okonkwo",
+      name: "Dr. Bernardo Javalquinto Lagos",
       title: "Vice President",
-      region: "Nigeria",
-      flag: "🇳🇬",
+      region: "Chile",
+      flag: "🇨🇱",
       committee: "Strategy & Chapters",
       joined: "2026-02-01",
+      photo: "images/Dr%20BERNARDO%20%20JAVALQUINTO%20LAGOS.jpeg",
       bio: [
-        "Dr. Amara Okonkwo oversees WEA's expansion strategy — the chartering of country chapters and the standards each chapter must meet.",
-        "A development economist by training, she has spent fifteen years building founder networks across West Africa.",
-        "She chairs the chapter chartering committee and reports on membership growth to the Executive Council."
+        "Dr. Bernardo Javalquinto Lagos is an economist and former World Bank and IFC staff member who advises governments and enterprises on sustainable finance, M&A and emerging markets.",
+        "He supports WEA's expansion strategy — the chartering of country chapters and the standards each chapter must meet.",
+        "He chairs the chapter chartering committee and reports on membership growth to the Executive Council."
       ],
-      focus: ["Chapter expansion", "Membership growth", "Regional strategy"]
+      focus: ["Chapter expansion", "Sustainable finance", "Regional strategy"]
     },
     {
       id: "WEA-2026-000003",
       code: "SG03-2026",
-      name: "Mr. Kwame Boateng",
+      name: "Dr. Oludare Tunde Fasomo",
       title: "Secretary-General",
-      region: "Ghana",
-      flag: "🇬🇭",
+      region: "Nigeria",
+      flag: "🇳🇬",
       committee: "Governance & Secretariat",
       joined: "2026-02-01",
+      photo: "images/Dr%20Oludare%20Tunde%20Fasomo.jpeg",
       bio: [
-        "Mr. Kwame Boateng runs the day-to-day operations of the Global Secretariat in Accra — records, resolutions and council scheduling.",
-        "He ensures every resolution of the Executive Council is documented, communicated and executed across chapters.",
-        "A corporate secretary with two decades of association governance experience."
+        "Dr. Oludare Tunde Fasomo runs the day-to-day operations of the Global Secretariat — records, resolutions and council scheduling.",
+        "An operations and human-resource professional, he ensures every resolution of the Executive Council is documented, communicated and executed across chapters.",
+        "He holds an MBA in Business Administration and advanced qualifications in banking and finance."
       ],
-      focus: ["Council operations", "Records & resolutions", "Policy"]
+      focus: ["Council operations", "Records & resolutions", "Administration"]
     },
     {
       id: "WEA-2026-000004",
       code: "TR04-2026",
-      name: "Ms. Fatima Al-Rashid",
+      name: "HRH Dr. Gary Sum",
       title: "Treasurer",
-      region: "United Arab Emirates",
-      flag: "🇦🇪",
+      region: "Hong Kong",
+      flag: "🇭🇰",
       committee: "Finance & Audit",
       joined: "2026-03-01",
+      photo: "images/GARY%20SUM.jpeg",
       bio: [
-        "Ms. Fatima Al-Rashid stewards WEA's finances — dues, grants, the funding programme and the audit cycle.",
-        "A former investment banker, she built the association's financial controls and transparent reporting framework.",
-        "She presents the annual financial statement to the Board of Trustees."
+        "HRH Dr. Gary Sum stewards WEA's finances — dues, grants, the funding programme and the audit cycle.",
+        "Group Chairman & CEO of Swiss Capital Group, he brings decades of banking, fintech and sovereign finance experience to the council.",
+        "He presents the annual financial statement to the Board of Trustees."
       ],
       focus: ["Treasury", "Grants & funding", "Audit"]
     },
     {
       id: "WEA-2026-000005",
       code: "DM05-2026",
-      name: "Mr. Thabo Nkosi",
-      title: "Director of Marketing & Communications",
-      region: "South Africa",
-      flag: "🇿🇦",
-      committee: "Brand & Communications",
+      name: "Dr. Sarah Noet",
+      title: "Director of Partnerships",
+      region: "United States",
+      flag: "🇺🇸",
+      committee: "Partnerships & Alliances",
       joined: "2026-03-01",
+      photo: "images/Dr%20Sarah%20Noet.jpeg",
       bio: [
-        "Mr. Thabo Nkosi owns the WEA brand — the identity, the campaigns and every public communication of the association.",
-        "He equips members and chapters with the marketing toolkit, brand rules and campaign templates they need to promote themselves.",
-        "A brand strategist who has launched pan-African campaigns for consumer and financial brands."
+        "Dr. Sarah Noet builds the alliances that open markets for members — corporates, institutions and associations worldwide.",
+        "Founder & CEO of Be The Change: Global Goals Unity Initiative and a Senior Fellow at the SDG Centre in Geneva, she leads WEA's engagement with development partners and industry bodies.",
+        "She is a patented inventor and a recognised voice on entrepreneurship, sustainability and youth leadership."
       ],
-      focus: ["Brand stewardship", "Campaigns", "Media relations"]
+      focus: ["Corporate alliances", "Institutional partners", "Global impact"]
     },
     {
       id: "WEA-2026-000006",
       code: "DM06-2026",
-      name: "Ms. Elena Marsh",
-      title: "Director of Partnerships",
-      region: "United Kingdom",
-      flag: "🇬🇧",
-      committee: "Partnerships & Alliances",
+      name: "Apostle Dr. Asravor Dzigbordi Aku Selasi",
+      title: "Director of Ethics & Member Welfare",
+      region: "Ghana",
+      flag: "🇬🇭",
+      committee: "Ethics & Member Welfare",
       joined: "2026-04-01",
+      photo: "images/Apostle%20Dr%20Asravor%20Dzigbordi%20Aku%20Selasi.jpeg",
       bio: [
-        "Ms. Elena Marsh builds the alliances that open markets for members — corporates, institutions and associations worldwide.",
-        "She leads WEA's engagement with development partners, industry bodies and the annual conference sponsors.",
-        "Previously led strategic partnerships for a European trade body."
+        "Apostle Dr. Asravor Dzigbordi Aku Selasi leads WEA's ethics and member-welfare portfolio, keeping the association's charter of values at the centre of its work.",
+        "A faith and community leader, he guides chapters on integrity, inclusion and the pastoral care of members and their families.",
+        "He convenes the ethics review panel and advises the Executive Council on matters of conduct and values."
       ],
-      focus: ["Corporate alliances", "Institutional partners", "Sponsorship"]
-    },
-    {
-      id: "WEA-2026-000007",
-      code: "DP07-2026",
-      name: "Mr. Rajiv Menon",
-      title: "Director of Programs & Education",
-      region: "India",
-      flag: "🇮🇳",
-      committee: "Programmes & Learning",
-      joined: "2026-04-01",
-      bio: [
-        "Mr. Rajiv Menon designs the learning architecture of WEA — the workshops, the curriculum and the future Entrepreneurship University.",
-        "He curates the speaker faculty for the Global Entrepreneurs Conference and the chapter education calendar.",
-        "An educator and startup operator who has trained thousands of founders across Asia."
-      ],
-      focus: ["Curriculum", "Conference faculty", "University track"]
-    },
-    {
-      id: "WEA-2026-000008",
-      code: "DR08-2026",
-      name: "Dr. Sofía Ramírez",
-      title: "Director of Membership",
-      region: "Mexico",
-      flag: "🇲🇽",
-      committee: "Membership & Verification",
-      joined: "2026-05-01",
-      bio: [
-        "Dr. Sofía Ramírez owns the member experience — applications, verification and the standards that make a WEA ID meaningful.",
-        "She oversees the verification programme that lets anyone confirm a member's standing in seconds.",
-        "A former chamber of commerce director who grew a regional membership base to 40,000."
-      ],
-      focus: ["Member experience", "Verification", "Standards"]
+      focus: ["Ethics & conduct", "Member welfare", "Community values"]
     }
   ];
 

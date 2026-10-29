@@ -46,7 +46,7 @@
           'data-exec="' + i + '" tabindex="0" role="button" ' +
           'aria-label="Open profile for ' + WEA.escapeHTML(m.name) + '">' +
           '<span class="profile-badge badge"><i class="ph ph-seal-check" aria-hidden="true"></i> Council</span>' +
-          WEA.avatarHTML(m.name, null, "avatar--lg") +
+          WEA.avatarHTML(m.name, m.photo, "avatar--lg") +
           "<h3>" + WEA.escapeHTML(m.name) + "</h3>" +
           '<p class="profile-role">' + WEA.escapeHTML(m.title) + "</p>" +
           '<span class="profile-region badge"><i class="ph ph-map-pin" aria-hidden="true"></i> ' +
@@ -73,7 +73,7 @@
 
       body.innerHTML =
         '<div class="dialog-head">' +
-        WEA.avatarHTML(m.name, null, "avatar--xl") +
+        WEA.avatarHTML(m.name, m.photo, "avatar--xl") +
         "<div>" +
         "<h3>" + WEA.escapeHTML(m.name) + "</h3>" +
         '<p class="profile-role">' + WEA.escapeHTML(m.title) + "</p>" +
@@ -208,7 +208,7 @@
           var verified = m.status === "verified";
           return (
             '<div class="dir-row">' +
-            WEA.avatarHTML(m.name, null, "avatar--sm") +
+            WEA.avatarHTML(m.name, m.photo, "avatar--sm") +
             '<div class="dir-name">' +
             "<strong>" + WEA.escapeHTML(m.name) +
             (m.executive
